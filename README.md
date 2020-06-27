@@ -11,4 +11,6 @@ Built upon master pages. To use the template one only needs knowing how to apply
 ## Fonts
 The font used is [Titillium](https://fonts.google.com/specimen/Titillium+Web).
 
-- MdL
+---
+
+### MdL
