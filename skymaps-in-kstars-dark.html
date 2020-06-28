@@ -1,0 +1,1846 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>skymaps-in-kstars</title><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+
+
+/* Flowchart variables */
+/* Sequence Diagram variables */
+/* Gantt chart variables */
+/* state colors */
+.label {
+  
+  color: #333; }
+
+.label text {
+  fill: #333; }
+
+.node rect,
+.node circle,
+.node ellipse,
+.node polygon {
+  fill: #BDD5EA;
+  stroke: #9370DB;
+  stroke-width: 1px; }
+
+.node .label {
+  text-align: center; }
+
+.node.clickable {
+  cursor: pointer; }
+
+.arrowheadPath {
+  fill: lightgrey; }
+
+.edgePath .path {
+  stroke: lightgrey;
+  stroke-width: 1.5px; }
+
+.edgeLabel {
+  background-color: #e8e8e8;
+  text-align: center; }
+
+.cluster rect {
+  fill: #6D6D65;
+  stroke: rgba(255, 255, 255, 0.25);
+  stroke-width: 1px; }
+
+.cluster text {
+  fill: #F9FFFE; }
+
+div.mermaidTooltip {
+  position: absolute;
+  text-align: center;
+  max-width: 200px;
+  padding: 2px;
+  
+  font-size: 12px;
+  background: #6D6D65;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 100; }
+
+.actor {
+  stroke: #81B1DB;
+  fill: #BDD5EA; }
+
+text.actor {
+  fill: black;
+  stroke: none; }
+
+.actor-line {
+  stroke: lightgrey; }
+
+.messageLine0 {
+  stroke-width: 1.5;
+  stroke-dasharray: '2 2';
+  stroke: lightgrey; }
+
+.messageLine1 {
+  stroke-width: 1.5;
+  stroke-dasharray: '2 2';
+  stroke: lightgrey; }
+
+#arrowhead {
+  fill: lightgrey; }
+
+.sequenceNumber {
+  fill: white; }
+
+#sequencenumber {
+  fill: lightgrey; }
+
+#crosshead path {
+  fill: lightgrey !important;
+  stroke: lightgrey !important; }
+
+.messageText {
+  fill: lightgrey;
+  stroke: none; }
+
+.labelBox {
+  stroke: #81B1DB;
+  fill: #BDD5EA; }
+
+.labelText {
+  fill: #323D47;
+  stroke: none; }
+
+.loopText {
+  fill: lightgrey;
+  stroke: none; }
+
+.loopLine {
+  stroke-width: 2;
+  stroke-dasharray: '2 2';
+  stroke: #81B1DB; }
+
+.note {
+  stroke: rgba(255, 255, 255, 0.25);
+  fill: #fff5ad; }
+
+.noteText {
+  fill: black;
+  stroke: none;
+  
+  font-size: 14px; }
+
+.activation0 {
+  fill: #f4f4f4;
+  stroke: #666; }
+
+.activation1 {
+  fill: #f4f4f4;
+  stroke: #666; }
+
+.activation2 {
+  fill: #f4f4f4;
+  stroke: #666; }
+
+/** Section styling */
+.section {
+  stroke: none;
+  opacity: 0.2; }
+
+.section0 {
+  fill: rgba(255, 255, 255, 0.3); }
+
+.section2 {
+  fill: #EAE8B9; }
+
+.section1,
+.section3 {
+  fill: white;
+  opacity: 0.2; }
+
+.sectionTitle0 {
+  fill: #F9FFFE; }
+
+.sectionTitle1 {
+  fill: #F9FFFE; }
+
+.sectionTitle2 {
+  fill: #F9FFFE; }
+
+.sectionTitle3 {
+  fill: #F9FFFE; }
+
+.sectionTitle {
+  text-anchor: start;
+  font-size: 11px;
+  text-height: 14px;
+   }
+
+/* Grid and axis */
+.grid .tick {
+  stroke: lightgrey;
+  opacity: 0.3;
+  shape-rendering: crispEdges; }
+
+.grid path {
+  stroke-width: 0; }
+
+/* Today line */
+.today {
+  fill: none;
+  stroke: #DB5757;
+  stroke-width: 2px; }
+
+/* Task styling */
+/* Default task */
+.task {
+  stroke-width: 2; }
+
+.taskText {
+  text-anchor: middle;
+   }
+
+.taskText:not([font-size]) {
+  font-size: 11px; }
+
+.taskTextOutsideRight {
+  fill: #323D47;
+  text-anchor: start;
+  font-size: 11px;
+   }
+
+.taskTextOutsideLeft {
+  fill: #323D47;
+  text-anchor: end;
+  font-size: 11px; }
+
+/* Special case clickable */
+.task.clickable {
+  cursor: pointer; }
+
+.taskText.clickable {
+  cursor: pointer;
+  fill: #003163 !important;
+  font-weight: bold; }
+
+.taskTextOutsideLeft.clickable {
+  cursor: pointer;
+  fill: #003163 !important;
+  font-weight: bold; }
+
+.taskTextOutsideRight.clickable {
+  cursor: pointer;
+  fill: #003163 !important;
+  font-weight: bold; }
+
+/* Specific task settings for the sections*/
+.taskText0,
+.taskText1,
+.taskText2,
+.taskText3 {
+  fill: #323D47; }
+
+.task0,
+.task1,
+.task2,
+.task3 {
+  fill: #BDD5EA;
+  stroke: rgba(255, 255, 255, 0.5); }
+
+.taskTextOutside0,
+.taskTextOutside2 {
+  fill: lightgrey; }
+
+.taskTextOutside1,
+.taskTextOutside3 {
+  fill: lightgrey; }
+
+/* Active task */
+.active0,
+.active1,
+.active2,
+.active3 {
+  fill: #81B1DB;
+  stroke: rgba(255, 255, 255, 0.5); }
+
+.activeText0,
+.activeText1,
+.activeText2,
+.activeText3 {
+  fill: #323D47 !important; }
+
+/* Completed task */
+.done0,
+.done1,
+.done2,
+.done3 {
+  stroke: grey;
+  fill: lightgrey;
+  stroke-width: 2; }
+
+.doneText0,
+.doneText1,
+.doneText2,
+.doneText3 {
+  fill: #323D47 !important; }
+
+/* Tasks on the critical line */
+.crit0,
+.crit1,
+.crit2,
+.crit3 {
+  stroke: #E83737;
+  fill: #E83737;
+  stroke-width: 2; }
+
+.activeCrit0,
+.activeCrit1,
+.activeCrit2,
+.activeCrit3 {
+  stroke: #E83737;
+  fill: #81B1DB;
+  stroke-width: 2; }
+
+.doneCrit0,
+.doneCrit1,
+.doneCrit2,
+.doneCrit3 {
+  stroke: #E83737;
+  fill: lightgrey;
+  stroke-width: 2;
+  cursor: pointer;
+  shape-rendering: crispEdges; }
+
+.milestone {
+  transform: rotate(45deg) scale(0.8, 0.8); }
+
+.milestoneText {
+  font-style: italic; }
+
+.doneCritText0,
+.doneCritText1,
+.doneCritText2,
+.doneCritText3 {
+  fill: #323D47 !important; }
+
+.activeCritText0,
+.activeCritText1,
+.activeCritText2,
+.activeCritText3 {
+  fill: #323D47 !important; }
+
+.titleText {
+  text-anchor: middle;
+  font-size: 18px;
+  fill: #323D47;
+   }
+
+g.classGroup text {
+  fill: #9370DB;
+  stroke: none;
+  
+  font-size: 10px; }
+  g.classGroup text .title {
+    font-weight: bolder; }
+
+g.classGroup rect {
+  fill: #BDD5EA;
+  stroke: #9370DB; }
+
+g.classGroup line {
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+.classLabel .box {
+  stroke: none;
+  stroke-width: 0;
+  fill: #BDD5EA;
+  opacity: 0.5; }
+
+.classLabel .label {
+  fill: #9370DB;
+  font-size: 10px; }
+
+.relation {
+  stroke: #9370DB;
+  stroke-width: 1;
+  fill: none; }
+
+#compositionStart {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#compositionEnd {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#aggregationStart {
+  fill: #BDD5EA;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#aggregationEnd {
+  fill: #BDD5EA;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#dependencyStart {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#dependencyEnd {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#extensionStart {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+#extensionEnd {
+  fill: #9370DB;
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+.commit-id,
+.commit-msg,
+.branch-label {
+  fill: lightgrey;
+  color: lightgrey;
+   }
+
+.pieTitleText {
+  text-anchor: middle;
+  font-size: 25px;
+  fill: #eee;
+}
+
+.slice {
+   }
+
+g.stateGroup text {
+  fill: #eee;
+  stroke: none;
+  font-size: 10px;
+   }
+
+g.stateGroup circle {
+  fill: white !important;
+  stroke: white !important;
+}
+
+g.stateGroup .state-title {
+  font-weight: bolder;
+  fill: black; }
+
+g.stateGroup rect {
+  fill: #ececff;
+  stroke: #9370DB; }
+
+g.stateGroup line {
+  stroke: #9370DB;
+  stroke-width: 1; }
+
+.transition {
+  stroke: #9370DB;
+  stroke-width: 1;
+  fill: none; }
+
+.stateGroup .composit {
+  fill: #555;
+  border-bottom: 1px; }
+
+.state-note {
+  stroke: rgba(255, 255, 255, 0.25);
+  fill: #fff5ad; }
+  .state-note text {
+    fill: black;
+    stroke: none;
+    font-size: 10px; }
+
+.stateLabel .box {
+  stroke: none;
+  stroke-width: 0;
+  fill: #BDD5EA;
+  opacity: 0.5; }
+
+.stateLabel text {
+  fill: black;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+
+/* CSS Document */
+
+/** code highlight */
+
+.cm-s-inner .cm-variable,
+.cm-s-inner .cm-operator,
+.cm-s-inner .cm-property {
+    color: #b8bfc6;
+}
+
+.cm-s-inner .cm-keyword {
+    color: #C88FD0;
+}
+
+.cm-s-inner .cm-tag {
+    color: #7DF46A;
+}
+
+.cm-s-inner .cm-attribute {
+    color: #7575E4;
+}
+
+.CodeMirror div.CodeMirror-cursor {
+    border-left: 1px solid #b8bfc6;
+    z-index: 3;
+}
+
+.cm-s-inner .cm-string {
+    color: #D26B6B;
+}
+
+.cm-s-inner .cm-comment,
+.cm-s-inner.cm-comment {
+    color: #DA924A;
+}
+
+.cm-s-inner .cm-header,
+.cm-s-inner .cm-def,
+.cm-s-inner.cm-header,
+.cm-s-inner.cm-def {
+    color: #8d8df0;
+}
+
+.cm-s-inner .cm-quote,
+.cm-s-inner.cm-quote {
+    color: #57ac57;
+}
+
+.cm-s-inner .cm-hr {
+    color: #d8d5d5;
+}
+
+.cm-s-inner .cm-link {
+    color: #d3d3ef;
+}
+
+.cm-s-inner .cm-negative {
+    color: #d95050;
+}
+
+.cm-s-inner .cm-positive {
+    color: #50e650;
+}
+
+.cm-s-inner .cm-string-2 {
+    color: #f50;
+}
+
+.cm-s-inner .cm-meta,
+.cm-s-inner .cm-qualifier {
+    color: #b7b3b3;
+}
+
+.cm-s-inner .cm-builtin {
+    color: #f3b3f8;
+}
+
+.cm-s-inner .cm-bracket {
+    color: #997;
+}
+
+.cm-s-inner .cm-atom,
+.cm-s-inner.cm-atom {
+    color: #84B6CB;
+}
+
+.cm-s-inner .cm-number {
+    color: #64AB8F;
+}
+
+.cm-s-inner .cm-variable {
+    color: #b8bfc6;
+}
+
+.cm-s-inner .cm-variable-2 {
+    color: #9FBAD5;
+}
+
+.cm-s-inner .cm-variable-3 {
+    color: #1cc685;
+}
+
+.CodeMirror-selectedtext,
+.CodeMirror-selected {
+    background: #4a89dc;
+    color: #fff !important;
+    text-shadow: none;
+}
+
+.CodeMirror-gutters {
+    border-right: none;
+}
+
+/* CSS Document */
+
+/** markdown source **/
+.cm-s-typora-default .cm-header, 
+.cm-s-typora-default .cm-property
+{
+    color: #cebcca;
+}
+
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor{
+    border-left: 3px solid #b8bfc6;
+}
+
+.cm-s-typora-default .cm-comment {
+    color: #9FB1FF;
+}
+
+.cm-s-typora-default .cm-string {
+    color: #A7A7D9
+}
+
+.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number {
+    color: #848695;
+    font-style: italic;
+}
+
+.cm-s-typora-default .cm-link {
+    color: #95B94B;
+}
+
+.cm-s-typora-default .CodeMirror-activeline-background {
+    background: rgba(51, 51, 51, 0.72);
+}
+
+.cm-s-typora-default .cm-comment, .cm-s-typora-default .cm-code {
+	color: #8aa1e1;
+}@import "";
+@import "";
+@import "";
+
+:root {
+    --bg-color:  #363B40;
+    --side-bar-bg-color: #2E3033;
+    --text-color: #b8bfc6;
+
+    --select-text-bg-color:#4a89dc;
+
+    --item-hover-bg-color: #0a0d16;
+    --control-text-color: #b7b7b7;
+    --control-text-hover-color: #eee;
+    --window-border: 1px solid #555;
+
+    --active-file-bg-color: rgb(34, 34, 34);
+    --active-file-border-color: #8d8df0;
+
+    --primary-color: #a3d5fe;
+
+    --active-file-text-color: white;
+    --item-hover-bg-color: #70717d;
+    --item-hover-text-color: white;
+    --primary-color: #6dc1e7;
+
+    --rawblock-edit-panel-bd: #333;
+
+    --search-select-bg-color: #428bca;
+}
+
+html {
+    font-size: 16px;
+}
+
+html,
+body {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    background: #363B40;
+    background: var(--bg-color);
+    fill: currentColor;
+    line-height: 1.625rem;
+}
+
+#write {
+    max-width: 914px;
+}
+
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+div.code-tooltip-content {
+    color: #b8bfc6;
+    border-color: transparent;
+}
+
+div.code-tooltip,
+.md-hover-tip .md-arrow:after {
+    background: #333;
+}
+
+.popover.bottom > .arrow:after {
+    border-bottom-color: #333;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+hr {
+    height: 2px;
+    border: 0;
+    margin: 24px 0 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Lucida Grande", "Corbel", sans-serif;
+    font-weight: normal;
+    clear: both;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+    color: #DEDEDE
+}
+
+h1 {
+    font-size: 2.5rem;
+    /* 36px */
+    line-height: 2.75rem;
+    /* 40px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    letter-spacing: -1.5px;
+}
+
+h2 {
+    font-size: 1.63rem;
+    /* 24px */
+    line-height: 1.875rem;
+    /* 30px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.17rem;
+    /* 18px */
+    line-height: 1.5rem;
+    /* 24px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
+h4 {
+    font-size: 1.12rem;
+    /* 16px */
+    line-height: 1.375rem;
+    /* 22px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    color: white;
+}
+
+h5 {
+    font-size: 0.97rem;
+    /* 16px */
+    line-height: 1.25rem;
+    /* 22px */
+    margin-bottom: 1.5rem;
+    /* 24px */
+    font-weight: bold;
+}
+
+h6 {
+    font-size: 0.93rem;
+    /* 16px */
+    line-height: 1rem;
+    /* 16px */
+    margin-bottom: 0.75rem;
+    color: white;
+}
+
+@media (min-width: 980px) {
+    h3.md-focus:before,
+    h4.md-focus:before,
+    h5.md-focus:before,
+    h6.md-focus:before {
+        color: #ddd;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        position: absolute;
+        left: -1.642857143rem;
+        top: .357142857rem;
+        float: left;
+        font-size: 9px;
+        padding-left: 2px;
+        padding-right: 2px;
+        vertical-align: bottom;
+        font-weight: normal;
+        line-height: normal;
+    }
+
+    h3.md-focus:before {
+        content: 'h3';
+    }
+
+    h4.md-focus:before {
+        content: 'h4';
+    }
+
+    h5.md-focus:before {
+        content: 'h5';
+        top: 0px;
+    }
+
+    h6.md-focus:before {
+        content: 'h6';
+        top: 0px;
+    }
+}
+
+a {
+    text-decoration: none;
+    outline: 0;
+}
+
+a:hover {
+    outline: 0;
+}
+
+a:focus {
+    outline: thin dotted;
+}
+
+sup.md-footnote {
+    background-color: #555;
+    color: #ddd;
+}
+
+p {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+p,
+ul,
+dd,
+ol,
+hr,
+address,
+pre,
+table,
+iframe,
+.wp-caption,
+.wp-audio-shortcode,
+.wp-video-shortcode {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    /* 24px */
+}
+
+li > blockquote {
+	margin-bottom: 0;
+}
+
+audio:not([controls]) {
+    display: none;
+}
+
+[hidden] {
+    display: none;
+}
+
+::-moz-selection {
+    background: #4a89dc;
+    color: #fff;
+    text-shadow: none;
+}
+
+*.in-text-selection,
+::selection {
+    background: #4a89dc;
+    color: #fff;
+    text-shadow: none;
+}
+
+ul,
+ol {
+    padding: 0 0 0 1.875rem;
+    /* 30px */
+}
+
+ul {
+    list-style: square;
+}
+
+ol {
+    list-style: decimal;
+}
+
+ul ul,
+ol ol,
+ul ol,
+ol ul {
+    margin: 0;
+}
+
+b,
+th,
+dt,
+strong {
+    font-weight: bold;
+}
+
+i,
+em,
+dfn,
+cite {
+    font-style: italic;
+}
+
+blockquote {
+    padding-left: 1.875rem;
+    margin: 0 0 1.875rem 1.875rem;
+    border-left: solid 2px #474d54;
+    padding-left: 30px;
+    margin-top: 35px;
+}
+
+pre,
+code,
+kbd,
+tt,
+var {
+    font-size: 0.875rem;
+    font-family: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+}
+
+code,
+tt,
+var {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+kbd {
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #fff;
+    background-color: #333;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
+}
+
+pre.md-fences {
+    padding: 10px 10px 10px 30px;
+    margin-bottom: 20px;
+    background: #333;
+}
+
+.CodeMirror-gutters {
+    background: #333;
+    border-right: 1px solid transparent;
+}
+
+.enable-diagrams pre.md-fences[lang="sequence"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="flow"] .code-tooltip,
+.enable-diagrams pre.md-fences[lang="mermaid"] .code-tooltip {
+    bottom: -2.2em;
+    right: 4px;
+}
+
+code,
+kbd,
+tt,
+var {
+    padding: 2px 5px;
+}
+
+table {
+    max-width: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th,
+td {
+    padding: 5px 10px;
+    vertical-align: top;
+}
+
+a {
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+hr {
+    background: #474d54;
+    /* variable */
+}
+
+h1 {
+    margin-top: 2em;
+}
+
+a {
+    color: #e0e0e0;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #fff;
+}
+
+.md-inline-math script {
+    color: #81b1db;
+}
+
+b,
+th,
+dt,
+strong {
+    color: #DEDEDE;
+    /* variable */
+}
+
+mark {
+    background: #D3D40E;
+}
+
+blockquote {
+    color: #9DA2A6;
+}
+
+table a {
+    color: #DEDEDE;
+    /* variable */
+}
+
+th,
+td {
+    border: solid 1px #474d54;
+    /* variable */
+}
+
+.task-list {
+    padding-left: 0;
+}
+
+.md-task-list-item {
+    padding-left: 1.25rem;
+}
+
+.md-task-list-item > input {
+    top: auto;
+}
+
+.md-task-list-item > input:before {
+    content: "";
+    display: inline-block;
+    width: 0.875rem;
+    height: 0.875rem;
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #b8bfc6;
+    background-color: #363B40;
+    margin-top: -0.4rem;
+}
+
+.md-task-list-item > input:checked:before,
+.md-task-list-item > input[checked]:before {
+    content: '\221A';
+    /*◘*/
+    font-size: 0.625rem;
+    line-height: 0.625rem;
+    color: #DEDEDE;
+}
+
+/** quick open **/
+.auto-suggest-container {
+    border: 0px;
+    background-color: #525C65;
+}
+
+#typora-quick-open {
+    background-color: #525C65;
+}
+
+#typora-quick-open input{
+    background-color: #525C65;
+    border: 0;
+    border-bottom: 1px solid grey;
+}
+
+.typora-quick-open-item {
+    background-color: inherit;
+    color: inherit;
+}
+
+.typora-quick-open-item.active,
+.typora-quick-open-item:hover {
+    background-color: #4D8BDB;
+    color: white;
+}
+
+.typora-quick-open-item:hover {
+    background-color: rgba(77, 139, 219, 0.8);
+}
+
+.typora-search-spinner > div {
+  background-color: #fff;
+}
+
+#write pre.md-meta-block {
+    border-bottom: 1px dashed #ccc;
+    background: transparent;
+    padding-bottom: 0.6em;
+    line-height: 1.6em;
+}
+
+.btn,
+.btn .btn-default {
+    background: transparent;
+    color: #b8bfc6;
+}
+
+.ty-table-edit {
+    border-top: 1px solid gray;
+    background-color: #363B40;
+}
+
+.popover-title {
+    background: transparent;
+}
+
+.md-image>.md-meta {
+    color: #BBBBBB;
+    background: transparent;
+}
+
+.md-expand.md-image>.md-meta {
+    color: #DDD;
+}
+
+#write>h3:before,
+#write>h4:before,
+#write>h5:before,
+#write>h6:before {
+    border: none;
+    border-radius: 0px;
+    color: #888;
+    text-decoration: underline;
+    left: -1.4rem;
+    top: 0.2rem;
+}
+
+#write>h3.md-focus:before {
+    top: 2px;
+}
+
+#write>h4.md-focus:before {
+    top: 2px;
+}
+
+.md-toc-item {
+    color: #A8C2DC;
+}
+
+#write div.md-toc-tooltip {
+    background-color: #363B40;
+}
+
+.dropdown-menu .btn:hover,
+.dropdown-menu .btn:focus,
+.md-toc .btn:hover,
+.md-toc .btn:focus {
+    color: white;
+    background: black;
+}
+
+#toc-dropmenu {
+    background: rgba(50, 54, 59, 0.93);
+    border: 1px solid rgba(253, 253, 253, 0.15);
+}
+
+#toc-dropmenu .divider {
+    background-color: #9b9b9b;
+}
+
+.outline-expander:before {
+    top: 2px;
+}
+
+#typora-sidebar {
+    box-shadow: none;
+    border-right: 1px dashed;
+    border-right: none;
+}
+
+.sidebar-tabs {
+    border-bottom:0;
+}
+
+#typora-sidebar:hover .outline-title-wrapper {
+    border-left: 1px dashed;
+}
+
+.outline-title-wrapper .btn {
+    color: inherit;
+}
+
+.outline-item:hover {
+    border-color: #363B40;
+    background-color: #363B40;
+    color: white;
+}
+
+h1.md-focus .md-attr,
+h2.md-focus .md-attr,
+h3.md-focus .md-attr,
+h4.md-focus .md-attr,
+h5.md-focus .md-attr,
+h6.md-focus .md-attr,
+.md-header-span .md-attr {
+    color: #8C8E92;
+    display: inline;
+}
+
+.md-comment {
+    color: #5a95e3;
+    opacity: 1;
+}
+
+.md-inline-math svg {
+    color: #b8bfc6;
+}
+
+#math-inline-preview .md-arrow:after {
+    background: black;
+}
+
+.modal-content {
+    background: var(--bg-color);
+    border: 0;
+}
+
+.modal-title {
+    font-size: 1.5em;
+}
+
+.modal-content input {
+    background-color: rgba(26, 21, 21, 0.51);
+    color: white;
+}
+
+.modal-content .input-group-addon {
+    color: white;
+}
+
+.modal-backdrop {
+    background-color: rgba(174, 174, 174, 0.7);
+}
+
+.modal-content .btn-primary {
+    border-color: var(--primary-color);
+}
+
+.md-table-resize-popover {
+    background-color: #333;
+}
+
+.form-inline .input-group .input-group-addon {
+    color: white;
+}
+
+#md-searchpanel {
+    border-bottom: 1px dashed grey;
+}
+
+/** UI for electron */
+
+.context-menu,
+#spell-check-panel,
+#footer-word-count-info {
+    background-color: #42464A;
+}
+
+.context-menu.dropdown-menu .divider,
+.dropdown-menu .divider {
+    background-color: #777777;
+}
+
+footer {
+    color: inherit;
+}
+
+@media (max-width: 1000px) {
+    footer {
+        border-top: none;
+    }
+    footer:hover {
+        color: inherit;
+    }
+}
+
+#file-info-file-path .file-info-field-value:hover {
+    background-color: #555;
+    color: #dedede;
+}
+
+.megamenu-content,
+.megamenu-opened header {
+    background: var(--bg-color);
+}
+
+.megamenu-menu-panel h2,
+.megamenu-menu-panel h1,
+.long-btn {
+    color: inherit;
+}
+
+.megamenu-menu-panel input[type='text'] {
+    background: inherit;
+    border: 0;
+    border-bottom: 1px solid;
+}
+
+#recent-file-panel-action-btn {
+    background: inherit;
+    border: 1px grey solid;
+}
+
+.megamenu-menu-panel .dropdown-menu > li > a {
+    color: inherit;
+    background-color: #2F353A;
+    text-decoration: none;
+}
+
+.megamenu-menu-panel table td:nth-child(1) {
+    color: inherit;
+    font-weight: bold;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(1) {
+    color: white;
+}
+
+.modal-footer .btn-default, 
+.modal-footer .btn-primary,
+.modal-footer .btn-default:not(:hover) {
+    border: 1px solid;
+    border-color: transparent;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default {
+    color: white;
+    border: 1px solid #ddd;
+    background-color: inherit;
+}
+
+.modal-header {
+    border-bottom: 0;
+}
+
+.modal-footer {
+    border-top: 0;
+}
+
+#recent-file-panel tbody tr:nth-child(2n-1) {
+    background-color: transparent !important;
+}
+
+.megamenu-menu-panel tbody tr:hover td:nth-child(2) {
+    color: inherit;
+}
+
+.megamenu-menu-panel .btn {
+    border: 1px solid #eee;
+    background: transparent;
+}
+
+.mouse-hover .toolbar-icon.btn:hover,
+#w-full.mouse-hover,
+#w-pin.mouse-hover {
+    background-color: inherit;
+}
+
+.typora-node::-webkit-scrollbar {
+    width: 5px;
+}
+
+.typora-node::-webkit-scrollbar-thumb:vertical {
+    background: rgba(250, 250, 250, 0.3);
+}
+
+.typora-node::-webkit-scrollbar-thumb:vertical:active {
+    background: rgba(250, 250, 250, 0.5);
+}
+
+#w-unpin {
+    background-color: #4182c4;
+}
+
+#top-titlebar, #top-titlebar * {
+    color: var(--item-hover-text-color);
+}
+
+.typora-sourceview-on #toggle-sourceview-btn,
+#footer-word-count:hover,
+.ty-show-word-count #footer-word-count {
+    background: #333333;
+}
+
+#toggle-sourceview-btn:hover {
+    color: #eee;
+    background: #333333;
+}
+
+/** focus mode */
+.on-focus-mode .md-end-block:not(.md-focus):not(.md-focus-container) * {
+    color: #686868 !important;
+}
+
+.on-focus-mode .md-end-block:not(.md-focus) img,
+.on-focus-mode .md-task-list-item:not(.md-focus-container)>input {
+    opacity: #686868 !important;
+}
+
+.on-focus-mode li[cid]:not(.md-focus-container){
+    color: #686868;
+}
+
+.on-focus-mode .md-fences.md-focus .CodeMirror-code>*:not(.CodeMirror-activeline) *,
+.on-focus-mode .CodeMirror.cm-s-inner:not(.CodeMirror-focused) * {
+    color: #686868 !important;
+}
+
+.on-focus-mode .md-focus,
+.on-focus-mode .md-focus-container {
+    color: #fff;
+}
+
+.on-focus-mode #typora-source .CodeMirror-code>*:not(.CodeMirror-activeline) * {
+    color: #686868 !important;
+}
+
+
+/*diagrams*/
+#write .md-focus .md-diagram-panel {
+    border: 1px solid #ddd;
+    margin-left: -1px;
+    width: calc(100% + 2px);
+}
+
+/*diagrams*/
+#write .md-focus.md-fences-with-lineno .md-diagram-panel {
+    margin-left: auto;
+}
+
+.md-diagram-panel-error {
+    color: #f1908e;
+}
+
+.active-tab-files #info-panel-tab-file,
+.active-tab-files #info-panel-tab-file:hover,
+.active-tab-outline #info-panel-tab-outline,
+.active-tab-outline #info-panel-tab-outline:hover {
+    color: #eee;
+}
+
+.sidebar-footer-item:hover,
+.footer-item:hover {
+    background: inherit;
+    color: white;
+}
+
+.ty-side-sort-btn.active,
+.ty-side-sort-btn:hover,
+.selected-folder-menu-item a:after {
+    color: white;
+}
+
+#sidebar-files-menu {
+    border:solid 1px;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.79);
+    background-color: var(--bg-color);
+}
+
+.file-list-item {
+    border-bottom:none;
+}
+
+.file-list-item-summary {
+    opacity: 1;
+}
+
+.file-list-item.active:first-child {
+    border-top: none;
+}
+
+.file-node-background {
+    height: 32px;
+}
+
+.file-library-node.active>.file-node-content,
+.file-list-item.active {
+    color: white;
+    color: var(--active-file-text-color);
+}
+
+.file-library-node.active>.file-node-background{
+    background-color: rgb(34, 34, 34);
+    background-color: var(--active-file-bg-color);
+}
+.file-list-item.active {
+    background-color: rgb(34, 34, 34);
+    background-color: var(--active-file-bg-color);
+}
+
+#ty-tooltip {
+    background-color: black;
+    color: #eee;
+}
+
+.md-task-list-item>input {
+    margin-left: -1.3em;
+    margin-top: 0.3rem;
+    -webkit-appearance: none;
+}
+
+.md-mathjax-midline {
+    background-color: #57616b;
+    border-bottom: none;
+}
+
+footer.ty-footer {
+    border-color: #656565;
+}
+
+.ty-preferences .btn-default {
+    background: transparent;
+}
+.ty-preferences .btn-default:hover {
+    background: #57616b;
+}
+
+.ty-preferences select {
+    border: 1px solid #989698;
+    height: 21px;
+}
+
+.ty-preferences .nav-group-item.active {
+    background: var(--item-hover-bg-color);
+}
+
+.ty-preferences input[type="search"] {
+    border-color: #333;
+    background: #333;
+    line-height: 22px;
+    border-radius: 6px;
+    color: white;
+}
+
+.ty-preferences input[type="search"]:focus {
+    box-shadow: none;
+}
+
+[data-is-directory="true"] .file-node-content {
+    margin-bottom: 0;
+}
+
+.file-node-title {
+    line-height: 22px;
+}
+
+.html-for-mac .file-node-open-state, .html-for-mac .file-node-icon {
+    line-height: 26px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(230, 230, 230, 0.30);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: rgba(230, 230, 230, 0.50);
+}
+
+#typora-sidebar:hover div.sidebar-content-content::-webkit-scrollbar-thumb:horizontal {
+    background: rgba(230, 230, 230, 0.30);
+}
+
+.nav-group-item:active {
+    background-color: #474d54;
+}
+
+.md-search-hit {
+    background: rgba(199, 140, 60, 0.81);
+    color: #eee;
+}
+
+.md-search-hit * {
+    color: #eee;
+}
+
+#md-searchpanel input {
+    color: white;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-node'><h1><a name="what-can-i-see-with-my-telescope" class="md-header-anchor"></a><span>What can I see with my telescope?</span></h1><p><span>This post may be considered a guide for novice amateur astronomers who are wondering what to see with their telescope. You will be introduced in a practical way to astronomical catalogs, observing lists and other digital and physical tools that will open the sky to you and let you know what is there to be seen and how to find it. You will learn </span><em><span>when</span></em><span>, </span><em><span>how</span></em><span> and </span><em><span>where</span></em><span> is best to observe different objects, how to estimate their detectability from you sky and telescope, organize and plan your sessions and last learn a workflow for plotting accurate custom skycharts that can be used at a dark site.</span></p><p><span>Some previews of print and digital skycharts you will learn how to make.</span></p><center>
+<a href="https://ibb.co/NxLXpkf"><img src="https://i.ibb.co/0qfkZW1/skycharts-white1.png" alt="skycharts-white1" border="0"></a>
+</center><p>&nbsp;</p><center>
+<a href="https://ibb.co/yScswVQ"><img src="https://i.ibb.co/GT4PKF5/skycharts-white2.png" alt="skycharts-white2" border="0"></a>
+</center><p>&nbsp;</p><center>
+<a href="https://ibb.co/NjXhZxX"><img src="https://i.ibb.co/wWTHMyT/skycharts-white3.png" alt="skycharts-white3" border="0"></a>
+</center><p>&nbsp;</p><center>
+<a href="https://ibb.co/jrrTzjV"><img src="https://i.ibb.co/jrrTzjV/skycharts-white4.png" alt="skycharts-white4" border="0"></a> <a href="https://ibb.co/2k9KMbn"><img src="https://i.ibb.co/2k9KMbn/skycharts-white5.png" alt="skycharts-white5" border="0"></a> <a href="https://ibb.co/n83Jr0k"><img src="https://i.ibb.co/n83Jr0k/skycharts-white6.png" alt="skycharts-white6" border="0"></a>
+</center><p>&nbsp;</p><center>
+<a href="https://ibb.co/F39hLyj"><img src="https://i.ibb.co/F39hLyj/astro-map-tmpl6.png" alt="astro-map-tmpl6" border="0"></a> <a href="https://ibb.co/y0sswDX"><img src="https://i.ibb.co/y0sswDX/astro-map-tmpl7.png" alt="astro-map-tmpl7" border="0"></a> <a href="https://ibb.co/F7VmT73"><img src="https://i.ibb.co/F7VmT73/astro-map-tmpl8.png" alt="astro-map-tmpl8" border="0"></a>
+</center><h2><a name="outline" class="md-header-anchor"></a><span>Outline</span></h2><ol start='' ><li><p><span>What to see</span></p><ul><li><span>Astronomical catalogs</span></li><li><span>Observing lists &amp; challenges</span></li><li><span>Optimized lists — </span><em><span>&#39;Best of&#39;</span></em></li><li><span>Clear Skies Observing Guides — CSOG</span></li></ul><p>&nbsp;</p></li><li><p><span>Finding objects</span></p><ul><li><p><span>Observing guides</span></p></li><li><p><span>Atlases</span></p><ul><li><span>How to choose one</span></li></ul></li><li><p><span>Mobile apps</span></p></li><li><p><span>Planetariums</span></p></li></ul><p>&nbsp;</p></li><li><p><span>Desktop planetariums</span></p><ul><li><span>Stellarium</span></li><li><span>Skychart / Cartes du Ciel</span></li><li><span>KStars</span></li></ul><p>&nbsp;</p></li><li><p><span>Make skycharts in Kstars — Configuration</span></p><ul><li><span>Navigation</span></li><li><span>Geo</span></li><li><span>Catalogs</span></li><li><span>Sky display / coordinates / projection</span></li><li><span>Eyepiece simulation</span></li></ul><p>&nbsp;</p></li><li><p><span>Make skycharts in Kstars — Workflow</span></p><ul><li><span>Time and planning</span></li><li><span>Estimating visibility: Magnitude vs Surface brightness</span></li><li><span>Altitude vs Time</span></li><li><span>Generating charts</span></li><li><span>Polishing for print</span></li></ul></li></ol><hr /><h2><a name="what-to-see" class="md-header-anchor"></a><span>What to see</span></h2><h3><a name="astronomical-catalogs--observing-lists" class="md-header-anchor"></a><span>Astronomical catalogs &amp; observing lists</span></h3><p><span>To enjoy stargazing it&#39;s crucial to know the sky, know what&#39;s up there and where to look. This implies knowing which constellations are up and which objects can be seen best during which month or season.</span></p><p><span>The most efficient way to get started into the hobby is to reference observing lists and catalogs made by others. Astronomers have been keeping logs of the position of astronomical bodies and events for millennia; first with the naked eye then with telescopes. Some recent catalogs feature deep sky objects bright enough that we can see or perceive appreciable details with amateur equipment. Then, dedicated astrophiles refined those catalogs and compiled smaller lists and observing guides containing only the finest objects which are seen best with small to large telescopes. These two kind of logs are the ones that are most useful when starting. However, they&#39;re not just lists, they all have a history behind and we encourage you to go and discover it. From here you will find links to such catalogs for either northern or southern hemisphere, or both, as well as some articles for further reading.</span></p><h4><a name="messier" class="md-header-anchor"></a><span>Messier</span></h4><p><a href='https://www.deepskywatch.com/files/dso-guide/DSO-guide-Messier.pdf'><span>Illustrated Messier objects list</span></a></p><p><span>This version of the Messier catalog is illustrated and includes a </span><a href='https://imgur.com/a/J21XmRp'><span>visibility chart</span></a><span> showing how many </span><code>M</code><span> objects can be seen each month.</span></p><figure><table><thead><tr><th style='text-align:center;' ><span>Objects</span></th><th style='text-align:center;' ><span>Quantity</span></th></tr></thead><tbody><tr><td style='text-align:center;' ><span>Galaxies</span></td><td style='text-align:center;' ><span>42</span></td></tr><tr><td style='text-align:center;' ><span>Nebulae</span></td><td style='text-align:center;' ><span>12</span></td></tr><tr><td style='text-align:center;' ><span>Open Clusters</span></td><td style='text-align:center;' ><span>26</span></td></tr><tr><td style='text-align:center;' ><span>Globular clusters</span></td><td style='text-align:center;' ><span>29</span></td></tr><tr><td style='text-align:center;' ><span>Others</span></td><td style='text-align:center;' ><span>3</span></td></tr><tr><td style='text-align:center;' ><span>Total</span></td><td style='text-align:center;' ><span>112 </span><sup><span>†</span></sup></td></tr></tbody></table></figure><p><sup><span>†</span></sup><span> Companion objects are accounted for in the counting.</span></p><p><span>More illustrated catalogs on </span><a href='https://www.deepskywatch.com/deepsky-guide.html'><span>deepskywatch</span></a><span> — Michael Vlasov</span></p><p><a href='https://tonyflanders.wordpress.com/urbansuburban-messier-project/'><span>Urban/Suburban Messier Observing Guide</span></a><span> — Tony Flanders</span></p><h4><a name="caldwell" class="md-header-anchor"></a><span>Caldwell</span></h4><p><a href='https://www.go-astronomy.com/caldwell-objects.htm'><span>go-astronomy.com</span></a></p><p><span>This version of the catalog includes viewing–season specification, the New General Catalog name corresponding to each Caldwell object and star charts representing all </span><code>C</code><span> objects visible during that season!</span></p><p><a href='http://astropixels.com/caldwell/caldwellcat.html'><span>astropixel.com</span></a></p><p><a href='https://astronomy.com/-/media/Files/PDF/web%20extras/2012/11/The%20Caldwell%20Catalog/The-Caldwell-Catalog.pdf'><span>Article — astronomy.com</span></a></p><figure><table><thead><tr><th style='text-align:center;' ><span>Objects</span></th><th style='text-align:center;' ><span>Quantity</span></th></tr></thead><tbody><tr><td style='text-align:center;' ><span>Galaxies</span></td><td style='text-align:center;' ><span>35</span></td></tr><tr><td style='text-align:center;' ><span>Nebulae</span></td><td style='text-align:center;' ><span>9</span></td></tr><tr><td style='text-align:center;' ><span>Dark nebulae</span></td><td style='text-align:center;' ><span>1</span></td></tr><tr><td style='text-align:center;' ><span>Planetary nebulae</span></td><td style='text-align:center;' ><span>13</span></td></tr><tr><td style='text-align:center;' ><span>Star clusters and nebulae</span></td><td style='text-align:center;' ><span>6</span></td></tr><tr><td style='text-align:center;' ><span>Open clusters</span></td><td style='text-align:center;' ><span>25</span></td></tr><tr><td style='text-align:center;' ><span>Globular clusters</span></td><td style='text-align:center;' ><span>18</span></td></tr><tr><td style='text-align:center;' ><span>Supernova remnants</span></td><td style='text-align:center;' ><span>2</span></td></tr><tr><td style='text-align:center;' ><span>Total</span></td><td style='text-align:center;' ><span>109</span></td></tr></tbody></table></figure><h4><a name="lacaille" class="md-header-anchor"></a><span>Lacaille</span></h4><p><a href='https://assa.saao.ac.za/sections/deep-sky/lacailles-catalogue/'><span>Lacaille&#39;s Catalog of Nebulae of the Southern Sky</span></a></p><figure><table><thead><tr><th style='text-align:center;' ><span>Objects</span></th><th style='text-align:center;' ><span>Quantity</span></th></tr></thead><tbody><tr><td style='text-align:center;' ><span>Galaxies</span></td><td style='text-align:center;' ><span>1</span></td></tr><tr><td style='text-align:center;' ><span>Bright Nebulae</span></td><td style='text-align:center;' ><span>2</span></td></tr><tr><td style='text-align:center;' ><span>Open Clusters</span></td><td style='text-align:center;' ><span>24</span></td></tr><tr><td style='text-align:center;' ><span>Asterisms and Stars</span></td><td style='text-align:center;' ><span>7</span></td></tr><tr><td style='text-align:center;' ><span>Globular Clusters</span></td><td style='text-align:center;' ><span>7</span></td></tr><tr><td style='text-align:center;' ><span>Total</span></td><td style='text-align:center;' ><span>41</span></td></tr></tbody></table></figure><h4><a name="dunlop" class="md-header-anchor"></a><span>Dunlop</span></h4><p><a href='https://assa.saao.ac.za/sections/deep-sky/james-dunlops-catalogue/'><span>James Dunlop&#39;s Deep–SkyCatalogue</span></a></p><p><a href='http://articles.adsabs.harvard.edu/pdf/2010JAHH...13...59C'><span>James Dunlop’s historical catalogue of southern nebulae and clusters</span></a><span> — Journal of Astronomical History and Heritage.</span></p><p><span>Another southern hemisphere catalog.</span></p><blockquote><p><span>&quot;Glen Cozens (Cozens 2008, 2010) has identified Dunlop&#39;s objects to consist of 128 objects in the Large Magellanic Cloud (LMC), 31 objects in the Small Magellanic Cloud (SMC), and 187 deep–sky objects outside the Magellanic Clouds. Of the latter, there are 50 galaxies, 78 open clusters, 34 globular clusters, 4 planetary nebulae, 3 nebulae, 12 asterisms and 4 other objects, all together 346 identified deep–sky objects. 37 entries are duplicates, with different positions, for objects already contained in the catalog. The remaining entries mostly seem to be faint double or multiple stars.&quot; — </span><a href='https://www.messier.seds.org/xtra/similar/dunlop.html'><span>Source</span></a></p></blockquote><h4><a name="bennetts-list" class="md-header-anchor"></a><span>Bennett&#39;s list</span></h4><p><a href='http://www.docdb.net/tutorials/bennett_catalogue.php'><span>Jack Bennett&#39;s catalogue of southern comet–like deep sky objects</span></a></p><h4><a name="herschel-400" class="md-header-anchor"></a><span>Herschel 400</span></h4><p><a href='https://www.go-astronomy.com/herschel-objects.htm'><span>Object list</span></a></p><p><a href='http://sao64.free.fr/observations/catalogues/catalogueherschel400.pdf'><span>Viewing month map and list</span></a></p><p><span>Book version: </span><a href='https://www.amazon.co.uk/s?k=9780521858939&amp;i=stripbooks&amp;linkCode=qs'><span>Steve O&#39;Meara&#39;s Herschel 400 Observing Guide</span></a><span> complete with photographs, sketches, charts and instructions. </span><a href='https://books.google.it/books/about/Herschel_400_Observing_Guide.html?id=Nyh9fAC_tpIC&amp;printsec=frontcover&amp;source=kp_read_button&amp;redir_esc=y#v=onepage&amp;q&amp;f=false'><span>Google books preview</span></a></p><blockquote><p><span>The Herschel 400 is a list of 400 galaxies, nebulae, and star clusters, picked from over 2,500 deep-sky objects discovered and cataloged by the great eighteenth-century astronomer Sir William Herschel and his sister Caroline. It comprises 231 galaxies, 107 open clusters, 33 globular clusters, 20 planetary nebulae, 2 halves of a single planetary nebula, and 7 bright nebulae. In this guide Steve O&#39;Meara takes the observer through the list, season by season, month by month, night by night, object by object. He works through the objects in a carefully planned and methodical way, taking in some of the most dramatic non-Messier galaxies, nebulae, and star clusters in the night sky. Ideal for astronomers who have tackled the Messier objects, this richly illustrated guide will help the amateur astronomer hone their observing skills.</span></p></blockquote><figure><table><thead><tr><th><span>Object</span></th><th><span>Quantity</span></th></tr></thead><tbody><tr><td><span>Galaxies</span></td><td><span>231</span></td></tr><tr><td><span>Nebulae</span></td><td><span>30</span></td></tr><tr><td><span>Open clusters</span></td><td><span>100</span></td></tr><tr><td><span>Globular Clusters</span></td><td><span>34</span></td></tr><tr><td><span>Total</span></td><td><span>395</span></td></tr></tbody></table></figure><h4><a name="herschel-ii-observing-program" class="md-header-anchor"></a><span>Herschel II Observing program</span></h4><p><span>Minimum instrument aperture: 10–inches / 250 mm</span></p><p><span>The Astronomical League </span><a href='https://www.astroleague.org/node/411'><span>program description and guide</span></a></p><ul><li><a href='https://www.astroleague.org/files/u220/H2%20Lists%20-%20NGC.pdf'><span>List of Herschel II Objects — in NGC order</span></a></li><li><a href='https://www.astroleague.org/files/u220/H2%20Lists%20-%20RA.pdf'><span>List of Herschel II Objects — in Right Ascension order</span></a></li><li><a href='https://www.astroleague.org/files/u220/H2%20Lists%20-%20Const.pdf'><span>List of Herschel II Objects — by Constellation</span></a></li></ul><h4><a name="herschel-3" class="md-header-anchor"></a><span>Herschel 3</span></h4><p><a href='http://www.messier.seds.org/xtra/similar/herschel3.html'><span>Herschel 3 object list and description</span></a></p><h4><a name="abell-planetaries" class="md-header-anchor"></a><span>Abell planetaries</span></h4><p><span>~86 Objects.</span></p><p><span>Requires good to very good skies, large apertures from </span><em><span>at least</span></em><span> 8– to 16–inches and a basically mandatory </span><code>OIII</code><span> filter. Although some of these faint planetaries are visible in 4– to 6–inchers at low magnification (I stress the </span><code>OIII</code><span> filter) some others are almost invisible even in 27–inchers. Keep in mind that Geoge Abell discovered these planetaries and arranged this list by looking at photographic plates taken with the 48&#39;&#39; Schmidt Telescope on Mount Palomar.</span></p><p><span>These two observing reports may help you appreciate the challenge and what to expect in terms of instruments used and results.</span></p><p><a href='http://www.stathis-firstlight.de/deepsky/abell_sumary.htm'><span>Stathis Kafalis and Martin Schoenball&#39;s report</span></a></p><p><a href='http://www.deepsky-visuell.de/Projekte/AbellPN_E.htm'><span>Uwe Glahn&#39;s report</span></a></p><p><a href='https://astronomy-mall.com/Adventures.In.Deep.Space/abellpn.htm'><span>Complete catalog listed by viewing season!</span></a></p><p><span>Some easy ones are </span><code>Abell 4</code><span>, </span><code>Abell 12</code><span>, </span><code>Abell 82</code><span>, </span><code>Abell 21</code><span>, </span><code>Abell 70</code><span>.</span></p><h4><a name="royal-astronomical-society-of-canadas-lists" class="md-header-anchor"></a><span>Royal Astronomical Society of Canada&#39;s lists</span></h4><h4><a name="ngc" class="md-header-anchor"></a><span>NGC</span></h4><p><a href='http://www.messier.seds.org/xtra/similar/sac110bn.html'><span>RASC — Best Objects in the New General Catalog</span></a></p><p><a href='http://www.messier.seds.org/xtra/similar/rasc-ngc.html'><span>RASC&#39;s Finest NGC Objects List</span></a></p><p><a href='http://www.messier.seds.org/xtra/similar/rasc-dsc.html'><span>The RASC&#39;s Deep Sky Challenge Objects list</span></a></p><p><span>The third is a challenging list. It includes some very faint objects starting around ~11–12 magnitude and lower, like Quasars, Leo 1, PK planetary nebulae, Abell, IC and Sharpless objects. Very good skies, large apertures, experience and patience are required.</span></p><h4><a name="astronomical-leagues-southern-sky-binocular-clubhttpwwwmessiersedsorgxtrasimilaralbi-shtml" class="md-header-anchor"></a><a href='http://www.messier.seds.org/xtra/similar/albi-s.html'><span>Astronomical League&#39;s Southern Sky Binocular Club</span></a></h4><p><span>For the southern sky</span></p><blockquote><p><span>73 non–Messier objects observable in 7x50 (or larger) binoculars.</span></p></blockquote><h4><a name="astronomical-leagues-deep-sky-binocular-clubhttpwwwmessiersedsorgxtrasimilaralbi-dhtml" class="md-header-anchor"></a><a href='http://www.messier.seds.org/xtra/similar/albi-d.html'><span>Astronomical League&#39;s Deep Sky Binocular Club</span></a></h4><p><span>For the northern sky</span></p><blockquote><p><span>60 non–Messier objects observable in 7x50 (or larger) binoculars.</span></p></blockquote><h4><a name="double-stars-programhttpswwwastroleagueorgalobsclubsdblstardblstar1html" class="md-header-anchor"></a><a href='https://www.astroleague.org/al/obsclubs/dblstar/dblstar1.html'><span>Double stars Program</span></a></h4><p><span>Minimum instrument size: 3–inches / 70 mm</span></p><p><a href='https://www.astroleague.org/files/u220/ALDoubleStarList-20181017.pdf'><span>Double Star Observing Program List (pdf)</span></a></p><h4><a name="pretty-double-stars-for-everyone" class="md-header-anchor"></a><span>Pretty Double stars for everyone</span></h4><p><span>Conveniently organized in an easy-to-read table complete with suggested magnification.</span></p><p><a href='https://skyandtelescope.org/observing/celestial-objects-to-watch/pretty-double-stars-for-everyone/'><span>Pretty Double Stars for Everyone</span></a></p><h4><a name="list-of-best-650-dsohttpswwwdeepskywatchcomfilesdso-guidedso-guide-best650-const-magpdf" class="md-header-anchor"></a><a href='https://www.deepskywatch.com/files/dso-guide/DSO-guide-best650-const-mag.pdf'><span>List of best 650 DSO</span></a></h4><p><span>List of hand–picked best ~650 DSO sorted by constellation and magnitude</span></p><h4><a name="astronomical-society-of-southern-africa" class="md-header-anchor"></a><span>Astronomical Society of Southern Africa</span></h4><p><a href='http://assa.saao.ac.za/sections/deep-sky/assa-top-100/'><span>ASSA Top–100 Observing list — article</span></a><span> and </span><a href='https://assa.saao.ac.za/wp-content/uploads/sites/23/2013/06/assa-top100-deepskyobjects-201305.pdf'><span>pdf</span></a></p><h4><a name="clear-skies-observing-guides-csog" class="md-header-anchor"></a><span>Clear Skies Observing Guides (CSOG)</span></h4><p><span>Finally one of the best resources available to amateur astronomers: </span><a href='https://clearskies.eu/'><span>Clear Skies Observing Guides</span></a><span> by Victor van Wulfen.</span></p><p><span>It features </span><a href='https://clearskies.eu/csog/downloads/'><span>several FREE observing lists</span></a><span> well formatted as PDFs and organized with DSS images and descriptions. Easily usable with a tablet at the telescope. Objects lists are sorted in different ways, depending on the &#39;edition&#39;: either by aperture, catalogs, galaxies, nebulae, and star clusters.</span></p><p><span>Following, some links to CSOG lists,</span></p><p><a href='https://clearskies.eu/csog/downloads/constellations/#5-6'><span>5–6&#39;&#39; DSO list</span></a></p><blockquote><p><span>2348 Objects within reach of telescopes of 5 to 6 inches in aperture. All objects in the Messier, Dunlop and Lacaille catalogs are included.</span></p></blockquote><p><a href='https://clearskies.eu/csog/downloads/constellations/#8-10'><span>8–10&#39;&#39; DSO list</span></a></p><blockquote><p><span>4460 Objects within reach of telescopes of 8 to 10 inches in aperture. All objects in the 5-6&#39;&#39; edition are included, along with the Herschel 400, Herschel II and Herschel 3 lists and all but the faintest objects in Burnham’s Celestial Handbook.</span></p></blockquote><p><a href='https://clearskies.eu/csog/downloads/constellations/#12-14'><span>12–14&#39;&#39; DSO list</span></a></p><blockquote><p><span>14325 Objects within reach of telescopes of 12 to 14 inches in aperture. All objects in the 8-10&#39;&#39; edition are included, along with all Herschel objects.</span></p></blockquote><p><a href='https://clearskies.eu/csog/downloads/galaxies/'><span>Galaxies editions:</span></a></p><ul><li><span>Arp Peculiar Galaxies</span></li><li><span>Hickson Compact Galaxy Groups</span></li><li><span>Holmberg Double and Multiple Galaxies</span></li><li><span>Holmberg Galaxies</span></li><li><span>Rose Compact Groups of Galaxies</span></li><li><span>Klemola Groups and Clusters of Southern Galaxies</span></li><li><span>Markarian’s Chain</span></li><li><span>Fornax Galaxy Cluster</span></li><li><span>Dorado Group</span></li><li><span>Eridanus Cluster</span></li><li><span>Sculptor Group</span></li><li><span>Grus Galaxy Chain</span></li></ul><p><a href='https://clearskies.eu/csog/downloads/nebulae/'><span>Nebulae editions:</span></a></p><ul><li><span>Abell Nebulae</span></li><li><span>Minkowski</span></li><li><span>Parsamyan Catalogue of Cometary Nebulae</span></li></ul><p><a href='https://clearskies.eu/csog/downloads/starclusters/'><span>Star clusters editions</span></a></p><ul><li><span>Collinder star clusters</span></li><li><span>Melotte star clusters</span></li><li><span>Berkeley star clusters</span></li><li><span>Czernik star clusters</span></li><li><span>Trumpler open clusters</span></li><li><span>King open clusters</span></li><li><span>Stock open clusters</span></li><li><span>Van den Bergh–Hagen open clusters</span></li><li><span>Palomar globular clusters</span></li><li><span>Terzan globular clusters</span></li><li><span>Tombaugh open clusters</span></li><li><span>Raab open clusters</span></li><li><span>Dolidze open clusters</span></li><li><span>Dolidze–Dzimselejsvili open clusters</span></li><li><span>Basel open clusters</span></li><li><span>Roslund open clusters</span></li><li><span>Ruprecht star clusters</span></li><li><span>Pismis star clusters</span></li><li><span>Lynga star clusters</span></li><li><span>Hogg open clusters</span></li><li><span>Harvard open clusters</span></li><li><span>Haffner open clusters</span></li><li><span>Pfleiderer star clusters</span></li></ul><hr /><h2><a name="finding-objects" class="md-header-anchor"></a><span>Finding objects</span></h2><p><span>As you may have noticed these lists reference objects&#39; position using RA–DEC coordinates for logging brevity and accuracy. Depending on your setup — go–to vs manual mounts — this system may be impractical for finding objects. Hence the need for visual reference of the objects&#39; position in the sky. We need sky charts.</span></p><h3><a name="observing-guides-and-reports" class="md-header-anchor"></a><span>Observing Guides and Reports</span></h3><p><span>Such visual guidance is best given by observing guides. Authors dedicate pages to each object, they are made by astrophiles for astrophiles. Some are general guides intended to introduce the reader to the sky&#39;s celestial objects — </span><a href='https://www.cambridge.org/core/books/turn-left-at-orion/5FD24130D1829C2320DCE88C4ECDA941'><em><span>Turn Left at Orion</span></em></a><span> or </span><a href='https://www.barnesandnoble.com/w/burnhams-celestial-handbook-volume-one-robert-burnham-jr/1128928459'><em><span>Burnham&#39;s Celestial Handbook: An Observer&#39;s Guide to the Universe Beyond the Solar System Vol 1,2,3</span></em></a><span>. Others pay homage to only certain classes of objects, restricting their discussion to only deep–sky objects or members of the Solar System while others to specific official catalogs.</span></p><p><span>Whatever your level at the telescope they are great educational and technical tools. Many are geared toward newcomers, while others were intended for veterans. They provide charts, star–hop routes, historical or mythological context and the most up–to–date physical and theoretical information about objects. Also, it&#39;s common for authors to sort objects&#39; observability by aperture and viewing season and dedicate pages to telescope maintenance and use </span><em><span>i.e.</span></em><span>,</span></p><ul><li><span>Telescope collimation,</span></li><li><span>Bortle scale evaluation</span></li><li><span>Pickering seeing scale evaluation,</span></li><li><span>Finding deep sky objects</span></li><li><span>Observing with averted vision, magnitude</span></li><li><span>Challenges,</span></li></ul><p><span>and more…</span></p><p><span>Practically one could stop here, get a good guide and go to a dark site.</span></p><p><span>Some books suggestions:</span></p><p><a href='http://www.philharrington.net/cc01.htm'><em><span>Philip S. Harrington — Cosmic Challenge The Ultimate Observing List for Amateurs</span></em></a></p><p><em><span>Dickinson, T. and Dyer, A., Backyard Astronomer’s Guide (Camden House, 2002)</span></em></p><p><em><span>Harrington, P., Star Ware, fourth edition (John Wiley &amp; Sons, 2007)</span></em></p><p><em><span>Harrington, P., Touring the Universe through Binoculars (John Wiley and Sons, 1990)</span></em></p><p><em><span>Hickson, P., Atlas of Compact Groups of Galaxies (CRC Press, 1994)</span></em></p><p><em><span>Houston, W. and O’Meara, S., Deep-Sky Wonders (Sky Publishing, 1998)</span></em></p><p><em><span>Kepple, G. and Sanner, G., Night Sky Observer’s Guide, volumes 1 and 2 (Willmann-Bell, 1998)</span></em></p><p><em><span>Mollise, R., The Urban Astronomer’s Guide (Springer, 2006)</span></em></p><p><em><span>Mullaney, J. and Tirion, W., The Cambridge Double Star Atlas (Cambridge University Press, 2009)</span></em></p><p><em><span>O’Meara, S., Deep-Sky Companions: Hidden Treasures (Cambridge University Press, 2006)</span></em></p><p><em><span>O’Meara, S., Deep-Sky Companions: The Caldwell Objects (Cambridge University Press, 2003)</span></em></p><p><em><span>O’Meara, S., Deep-Sky Companions: The Messier Objects (Cambridge University Press, 2000)</span></em></p><p><em><span>Pennington, H., Year-Round Messier Marathon Field Guide (Willmann-Bell, 1998)</span></em></p><p><em><span>Stoyan, R., Atlas of the Messier Objects (Cambridge University Press, 2008)</span></em></p><p><em><span>Tirion, W., Sky Atlas 2000.0, second edition (Sky Publishing, 1998)</span></em></p><p><em><span>Tirion, W. and Cragin, M., Uranometria 2000.0, volumes 1 and 2 (Willmann-Bell, 2001)</span></em></p><center>
+<a href="https://ibb.co/nRBTSjy"><img src="https://i.ibb.co/FnX9tz1/01-finding-seeing-ex.png" alt="01-finding-seeing-ex" border="0" width="600"></a>
+</center><p><em><span>Seeing effect on image quality - Philip S. Harrington - Cosmic Challenge The Ultimate Observing List for Amateurs</span></em></p><center>
+<a href="https://ibb.co/6w6rcJ1"><img src="https://i.ibb.co/yPLdmBY/03-finding-averted-ex.png" alt="03-finding-averted-ex" border="0" width="600"></a>
+</center><p><span>Averted vision - Philip S. Harrington - Cosmic Challenge The Ultimate Observing List for Amateurs-Cambridge University Press (2010)</span></p><center>
+<a href="https://ibb.co/bg7V0rY"><img src="https://i.ibb.co/6RNSM4G/02-finding-power-ex.png" alt="02-finding-power-ex" border="0" width="600"></a>
+</center><p><span>Finding and detecting DSOs - Steve O’Meara&#39;s Herschel 400 Observing Guide-Cambridge University Press (2007)</span></p><h3><a name="atlases" class="md-header-anchor"></a><span>Atlases</span></h3><p><span>Another reference we can use are Sky Atlases. A good star atlas provides a road map of the entire sky, and can be used alongside more than one catalog. They are practical, cartographic maps of the sky.</span></p><p><span>Introductory atlases with monthly observing lists like the ones made by </span><a href='http://skymaps.com/downloads.html'><span>skymaps.com</span></a><span> or </span><a href='https://www.abramsplanetarium.org/SkyCalendar/'><span>Abrams Planetarium</span></a><span> can work as quick reference to see the sky configuration of the month as well as a summary of the brightest visible objects. They&#39;re all–sky charts, however, in addition to all–sky map, a telescope user needs a more detailed, magnified sky atlas in order to locate specific points of interest. Possibly one that matches the field of our finderscope.</span></p><p><span>A beginner would start with a beginner&#39;s star atlas — one that shows the constellations, the Messier objects, and perhaps a handful of other celestial highlights. If it&#39;s in the atlas, it&#39;s a reasonable DSO for a beginner to attempt to see.</span></p><p><span>The </span><a href='https://www.amazon.com/Edmund-mag-star-atlas/dp/B0006EABTA'><span>Edmund Mag 6 Star Atlas</span></a><span>, </span><a href='http://www.ianridpath.com/books/nortonpage.htm'><span>Norton&#39;s Star Atlas and Reference Handbook</span></a><span> </span><a href='https://www.amazon.co.uk/Telescopes-Pocket-Sinnott-second-Printing/dp/B00CAYPCRK/ref=tmm_pap_swatch_0?_encoding=UTF8&amp;qid=1591468785&amp;sr=1-1'><span>Sky &amp; Telescope Pocket Atlas</span></a><span> are some examples. The Edmund mag 6th overall, contains roughly 7,000 stars down to magnitude 6.2 — the unaided human eye&#39;s approximate limit for a typical rural/suburban sky. The atlas also plots nearly 1,000 double stars, variable stars, and deep–sky objects. Crowded regions in Orion, Virgo, and Sagittarius have detailed close–up–charts that make it easier to tell one object from another. Norton is there at 6.5 while The Pocket Atlas goes a bit deeper with 7.6th mag. These atlases are suited for people with small instruments like 2–, 3– or 4&#39;&#39; scopes and binos.</span></p><blockquote><p><span>To read a scan of the first edition of Norton&#39;s atlas as a sample go </span><a href='https://openlibrary.org/books/OL6544650M/A_star_atlas_and_telescopic_handbook_(epoch_1920)_for_students_and_amateurs'><span>here</span></a></p></blockquote><p><span>Then we move up to atlases such as </span><a href='https://www.willbell.com/u2k/index.htm'><span>Uranometria Atlases</span></a><span>, </span><a href='https://www.amazon.com/Millennium-Star-Atlas-Comprising-Catalogues-dp-1931559279/dp/1931559279/ref=mt_paperback?_encoding=UTF8&amp;me=&amp;qid='><span>Millennium Star Atlas</span></a><span>, although not new anymore and in fact out of print, then the </span><em><span>Torres&#39; Tri-Atlas</span></em><span> and </span><a href='https://agenaastro.com/great-atlas-of-the-sky-brych.html'><span>The Great Atlas of the Sky</span></a><span> (</span><em><span>More than 2 million stars and 70k DSO</span></em><span>). These ones plot enough stars to match the patterns in one&#39;s finder scopes, or even in a low–power eyepiece. As reference, because of how many small and faint objects are plotted, 8–10’’ telescopes probably won&#39;t exhaust completely the possibilities offered by these atlases.</span></p><p><span>Some newer ones try to do things differently: </span><a href='https://www.amazon.com/interstellarum-Deep-Sky-Atlas-Field/dp/1107503396/?tag=astrono0a-20'><span>Interstellarum Deep Sky Atlas</span></a><span> has nearly 202,000 stars to mag 9.5 and around 14,000 DSOs. Interstellarum plots things differently: objects are shown according the their actual visibility through 4–, 8– and 12–inch telescopes and DSO are graphically shaded accordingly to how bright or faint they should appear in a telescope: helping you even more in planning sessions and in getting an idea of what to expect at the eyepiece. Like some other atlases it has a </span><a href='(https://www.amazon.com/interstellarum-Deep-Sky-Atlas-Desk/dp/1107503388?tag=astrono0a-20)'><span>desk version</span></a><span> and </span><a href='https://www.amazon.com/interstellarum-Deep-Sky-Atlas-Field/dp/1107503396/?tag=astrono0a-20'><span>field version</span></a><span>, and </span><a href='https://www.cloudynights.com/articles/cat/user-reviews/interstellarum-deep-sky-guide-desk-edition-r3183'><span>here&#39;s</span></a><span> a short review with pictures of inside pages.</span></p><p><span>As far as free extensive alternatives there&#39;s the </span><a href='https://www.deepskywatch.com/deep-sky-hunter-atlas.html'><span>Deep–Sky Hunter (2nd release)</span></a><span> with stars down to 10.2th magnitude and ~14.400 DSOs down to the 14th. It has a more compact release </span><a href='https://www.deepskywatch.com/deepsky-atlas-release1.html'><span>TheSky Deep-Sky Atlas (1st release)</span></a><span> available in 80 A4 maps featuring approximately the same level of detail and </span><em><span>scale</span></em><span> as Sky Atlas 2000 — </span><a href='https://www.deepskywatch.com/Deep-Sky-atlas/comparison.html'><span>plots comparison</span></a><span> — stars down to 9.5th mag and DSO to ~12.5th, 13.5th.</span></p><p><span>Last and still free the 3–volume Torres Tri Atlas. It&#39;s quite big, each volume can be considered a full sky atlas on its own. In those volumes José Torres plots objects from 10th to 12th to 13th magnitude. The 3rd voume alone has around 40,000 DSOs. Things get quite crowded in some pages. This one&#39;s free also and in PDF format so you&#39;d have to print it yourself, however, you can print out individual charts as you need them instead of carrying around the whole thing. </span><strong><span>Note:</span></strong><span> If you plan on getting this one be wary that the atlas assumes precise scaling, </span><em><span>i.e.</span></em><span> 1 cm = 2.4° therefore </span><em><span>DON&#39;T adapt the graphics to the paper when printing, instead print it at 100% scaling.</span></em></p><p><span>Last note. So if you&#39;re buying an Atlas make sure you get the last edition, be wary of magnitude resolution (depth) with respect to your aperture, and dimensions: as in scale of the sky in degrees per page and page size. If folios get too big to allow for more spacing between objects and labels it gets unwieldy, too small it gets crowded and hard to read. Checking one out in person in a shop or from an astro–club fellow would be ideal.</span></p><p><a href='https://skyandtelescope.org/astronomy-resources/using-a-map-at-the-telescope/'><span>Article: Sky &amp; Telescope — How to Use a Star Chart at the Telescope</span></a></p><p><span>Following are some size and plots comparisons of various star atlases as well as links for the good free ones mentioned.</span></p><figure><table><thead><tr><th>&nbsp;</th><th><span>Great Atlas of the Sky</span></th><th><span>Uranometria</span></th><th><span>Deep–Sky Hunter</span></th></tr></thead><tbody><tr><td><span>Stars plotted</span></td><td><span>2,430,768</span></td><td><span>280,035</span></td><td><a href='https://www.deepskywatch.com/Deep-Sky-atlas/comparison.html'><span>plots comparison</span></a></td></tr><tr><td><span>Deep-sky objects plotted</span></td><td><span>70,000+</span></td><td><span>30,500</span></td><td><span>~14,400</span></td></tr><tr><td><span>Magnitude depth</span></td><td><span>12</span></td><td><span>9.75</span></td><td><span>stars 10.2, DSO 14</span></td></tr><tr><td><span>Map scale</span></td><td><span>37mm/degree</span></td><td><span>18.5mm/degree</span></td><td><span>40x30° — spreads</span></td></tr><tr><td><span>Number of maps</span></td><td><span>296</span></td><td><span>440</span></td><td><span>118+</span></td></tr><tr><td><span>Map size</span></td><td><span>17x24’’</span></td><td><span>9x12’’</span></td><td><span>A3 — 11.7x16.5’’</span></td></tr><tr><td><span>Number of volumes</span></td><td><span>1</span></td><td><span>1 — 3</span><sup><span>rd</span></sup><span> edition</span></td><td><span>1</span></td></tr><tr><td><span>Availability</span></td><td><span>In print</span></td><td><span>In print</span></td><td><span>Digital / Self–printabale</span></td></tr><tr><td><span>Price</span></td><td><span>+++</span></td><td><span>+</span></td><td><span>Free</span></td></tr></tbody></table></figure><p><a href='https://www.deepskywatch.com/Deep-Sky-atlas/comparison.html'><span>Comparison of star plots in several atlases</span></a><span> — Michael Vlasov, deepskywatch.com</span></p><p><a href='https://www.cloudynights.com/topic/664921-what-i-did-to-the-torres-triatlas/'><span>Folio size comparison: Tri-Atlas vs Sky &amp; Telescope Pocket Sky Atlas</span></a><span> — cloudynights.com</span></p><blockquote><p><span>The </span><a href='https://www.uv.es/jrtorres/triatlas.html'><span>original site</span></a><span> where the Tri Atlas was hosted is down since 2019. You can try using the </span><a href='https://archive.org/web/web.php'><span>way back machine</span></a><span> to access the site at of one of his last states and download the maps. Alternatively contact me on Reddit — </span><a href='https://www.reddit.com/u/canivenatici/'><span>u/canivenatici</span></a><span> — to get a free copy of the atlas. If the site&#39;s still archived in the waybackmachine you can use this command to download all 45 charts automatically as PDFs.</span></p><p><span>On Windows you&#39;d need to </span><a href='https://www.addictivetips.com/windows-tips/install-and-use-wget-in-windows-10/'><span>install wget</span></a><span> then run this command in a command prompt.</span></p><p><code>wget -r -A.pdf https://web.archive.org/web/20170808010500/https://www.uv.es/jrtorres/triatlas.html</code></p></blockquote><h3><a name="mobile-planetariums" class="md-header-anchor"></a><span>Mobile planetariums</span></h3><p><span>We move up to mobile and desktop planetariums for another way of finding targets. Now one can potentially match the star field of any eyepiece, on any telescope and to whatever magnitude, simulate eyepiece views, plot satellites, comets, asteroids, predict conjunction, moon phases, eclipses and see all these phenomena in a viewport which represents accurately the sky configuration of your location.</span></p><p><span>Generally mobile apps are already well equipped by default, </span><em><span>e.g.</span></em><span> Stellarium mobile plots stars down to ~12th magnitude, but some allow to download additional catalogs through an in–app purchase and extend the number of objects plotted. However, having too many catalogs will plot too many faint objects which will clutter a phone screen quickly with markers and labels.</span></p><h4><a name="limitations-of-apps" class="md-header-anchor"></a><span>Limitations of apps</span></h4><p><span>Beside depth and screen size there are other issues involved with using screens. The major one is that light from the screen ruins and prevents dark adaptation which can be an issue for you and others sharing the dark site with you. That is also true for reading a paper chart since it requires a red light, so similar care is needed. Use very dim lights and brightness settings or shield your screen like in this image from </span><a href='https://clearskies.eu'><span>CSOG</span></a><span>. It’s nice to see there’s a paper atlas in the background anyway :)</span></p><center>
+<a href="https://i0.wp.com/clearskies.eu/wp-content/uploads/2020/05/IMG_9790.jpg?resize=1024%2C682&amp;ssl=1"><img src="https://i0.wp.com/clearskies.eu/wp-content/uploads/2020/05/IMG_9790.jpg?resize=1024%2C682&amp;ssl=1" alt="02-finding-power-ex" border="0" width="800"></a>
+</center><p><span>The interactivity offered by mobile planetariums can increase the ease of use compared to stars atlases however browsing and planning should be done before going to a site anyway and using small screens for that is not ideal. It&#39;s still done more efficiently and comfortably with an atlas, observing guide, desktop planetarium or at </span><a href='telescopius.com/'><span>telescopius.com</span></a><span>. Furthermore, battery charge, lack or poor internet/gps signal in remote places may pose as additional issues. Last, the best apps are not free and require in–app purchases to extend the databases — unnecessarily. Most atlases are not free either but some very good ones are (see </span><a href='https://www.deepskywatch.com/deep-sky-hunter-atlas.html'><span>Deep–Sky Hunter</span></a><span>, </span><a href='https://www.deepskywatch.com/deepsky-atlas-release1.html'><span>TheSky</span></a><span> and Torres&#39; Tri–Atlas). Moreover, nowadays catalogs are available for free and both official and custom ones can be added to a desktop planetarium with minimal to no effort. From there one can make his own sky charts and either print them or use them digitally as we&#39;ll see later.</span></p><figure><table><thead><tr><th style='text-align:left;' ><span>App</span></th><th><span>Link</span></th></tr></thead><tbody><tr><td style='text-align:left;' ><span>Stellarium</span></td><td><a href='https://play.google.com/store/search?q=stellarium%20mobile&amp;c=apps'><span>android</span></a><span>, </span><a href='https://apps.apple.com/us/app/stellarium-mobile-sky-map/id643165438'><span>ios</span></a></td></tr><tr><td style='text-align:left;' ><span>SkySafari</span></td><td><a href='https://play.google.com/store/apps/details?id=com.simulationcurriculum.skysafari5&amp;hl=en_US'><span>android</span></a><span>, </span><a href='https://apps.apple.com/us/app/skysafari/id1257281849'><span>ios</span></a></td></tr><tr><td style='text-align:left;' ><span>KStars Lite</span></td><td><a href='https://play.google.com/store/apps/details?id=org.kde.kstars.lite&amp;hl=en'><span>android</span></a></td></tr><tr><td style='text-align:left;' ><span>Skeye</span></td><td><a href='https://play.google.com/store/apps/details?id=com.lavadip.skeye'><span>android</span></a></td></tr><tr><td style='text-align:left;' ><span>Star Rover</span></td><td><a href='https://play.google.com/store/apps/details?id=net.eefan.star'><span>android</span></a><span>, </span><a href='https://apps.apple.com/us/app/skysafari/id1257281849'><span>ios</span></a></td></tr></tbody></table></figure><h2><a name="desktop-planetariums" class="md-header-anchor"></a><span>Desktop Planetariums</span></h2><p><span>Desktop planetarium are the most powerful tools we can use to navigate the sky. The most common ones are: </span><a href='https://stellarium.org/'><span>Stellarium</span></a><span>, </span><a href='https://www.ap-i.net/skychart/en/start'><span>Skycharts / Cartes du Ciél</span></a><span> and </span><a href='https://edu.kde.org/kstars/'><span>KStars</span></a><span>.</span></p><p><span>Planetarium softwares are more extensive than any printed atlas or mobile app. While they include all the features that apps or atlases offer, they can do even more.</span></p><p><span>We will present some of their feature, then proceed to the skychart generating section where you&#39;ll learn how to use one for stargazing and generating sky charts.</span></p><h3><a name="stellarium" class="md-header-anchor"></a><span>Stellarium</span></h3><blockquote><p><span>Stellarium is a free open source planetarium for your computer. It shows a realistic sky in 3D, just like what you see with the naked eye, binoculars or a telescope. — </span><a href='https://stellarium.org/'><span>stellarium.org</span></a></p></blockquote><p><span>Stellarium focus is &#39;views&#39;. Among planetariums it offers the most realistic rendition of the night sky, sunset and sunrise, simulating atmospheric extinction and refraction. It also has one of the most intuitive and minimal interface compared to other piece of software. The default catalog offers 600k stars expandable to 177 million. 80k DSO expandable to 1 million. One downside I find with Stellarium is that it doesn&#39;t offer neither import nor export functionality of observing list or session plans. Charting is limited to taking screenshots of the viewport and inverting the colors in a graphic program.</span></p><h3><a name="skychart-----cartes-du-ciel" class="md-header-anchor"></a><span>Skychart — Cartes du Ciel</span></h3><blockquote><p><span>This program enables you to draw sky charts, making use of the data in many catalogs of stars and nebulae. In addition the position of planets, asteroids and comets are shown.</span></p><p><span>The purpose of this program is to prepare different sky maps for a particular observation. A large number of parameters help you to choose specifically or automatically which catalogs to use, the colour and the dimension of stars and nebulae, the representation of planets, the display of labels and coordinate grids, the superposition of pictures, the condition of visibility and more. All these features make this celestial atlas more complete than a conventional planetarium. — </span><a href='https://www.ap-i.net/skychart//en/start'><span>Website</span></a></p></blockquote><p><span>The interface is denser compared to Stellarium and often less intuitive. However, it offers more control over sky visualisation which is particularly good for charting.</span></p><center>
+<a href="https://ibb.co/Nmqmgqs"><img src="https://i.ibb.co/jWYW9YT/cartes-cfg-01.png" alt="cartes-cfg-01" border="0" width="600"></a>
+</center><blockquote><p><span>Map projection is fov–specific</span></p></blockquote><center>
+<a href="https://ibb.co/3SdzwVC"><img src="https://i.ibb.co/TP2LZJg/cartes-cfg-02.png" alt="cartes-cfg-02" border="0" width="600"></a>
+</center><blockquote><p><span>Limit drawn magnitude by fov</span></p></blockquote><p><span>External catalogs can be added to the software </span><a href='https://ap-i.net/skychart/en/download'><span>1</span></a><span>, </span><a href='http://www.schoenball.de/astronomie/cdc/cdc_en.htm'><span>2</span></a><span>, </span><a href='https://www.ap-i.net/skychart/doku.php?id=uk/catalogues'><span>3</span></a><span> or downloaded interactively through </span><a href='http://vizier.u-strasbg.fr/viz-bin/VizieR'><span>VizieR Online Data Catalog</span></a><span>. However the catalogs included in the software make the program already quite complete and the ones from Vizier are professional so it may be somewhat cumbersome selecting one and adding only the relevant parameters. Cartes du Ciel has the largest database of astronomical objects for any free software.</span></p><figure><table><thead><tr><th><span>Type</span></th><th><span>Cat</span></th></tr></thead><tbody><tr><td><span>Stars</span></td><td><span>Extended Hipparcos</span></td></tr><tr><td><span>Stars</span></td><td><span>Gaia</span></td></tr><tr><td><span>Variables Stars</span></td><td><span>Variable Stars, IR variables</span></td></tr><tr><td><span>Double Stars</span></td><td><span>Washington Double Star</span></td></tr><tr><td><span>Deep Sky</span></td><td><span>SAC/Open NGC</span></td></tr><tr><td><span>Nebulae</span></td><td><span>Lynds</span></td></tr><tr><td><span>H</span><sub><span>II</span></sub><span> Regions</span></td><td><span>Sharpless</span></td></tr><tr><td><span>Dark Nebulae</span></td><td><span>Barnard</span></td></tr><tr><td><span>Galaxies</span></td><td><span>PGC / LEDA</span></td></tr><tr><td><span>Open Clusters</span></td><td><span>OCL</span></td></tr><tr><td><span>Globular Clusters in the Milky Way</span></td><td><span>GCM</span></td></tr><tr><td><span>Galactic Planetary Nebulae</span></td><td><span>GPN</span></td></tr></tbody></table></figure><blockquote><p><span>Note: The export function to PDF is bugged at least since 2016. It is functional but labels colors, labels dimensions, stars dimensions and anti–alias settings get overridden and do not export correctly. The workaround is to take a screenshot of the viewport — which will produce a low quality file and makes any other planetarium equally valid for charting.</span></p></blockquote><p><a href='https://www.ap-i.net/skychart/en/documentation/start'><span>Cartes du Ciel documentation</span></a></p><h3><a name="kstars" class="md-header-anchor"></a><span>KStars</span></h3><p><a href='https://edu.kde.org/kstars/'><span>Website description</span></a></p><blockquote><p><span>KStars is free, open source Astronomy Software. It provides an accurate graphical simulation of the night sky, from any location on Earth, at any date and time. The display includes up to 100 million stars, 13,000 deep-sky objects, all 8 planets, the Sun and Moon, and thousands of comets, asteroids, supernovae, and satellites. For students and teachers, it supports adjustable simulation speeds in order to view phenomena that happen over long timescales, the KStars Astrocalculator to predict conjunctions, and many common astronomical calculations.</span></p><p><span>For the amateur astronomer, it provides an observation planner, a sky calendar tool, and an FOV editor to calculate field of view of equipment and display them. Find out interesting objects in the &quot;What&#39;s up Tonight&quot; tool, plot altitude vs. time graphs for any object, print high-quality sky charts, and gain access to lots of information and resources to help you explore the universe! Included with KStars is Ekos astrophotography suite, a complete astrophotography solution that can control all INDI devices including numerous telescopes, CCDs, DSLRs, focusers, filters, and a lot more. Ekos supports highly accurate tracking using online and offline astrometry solver, autofocus and autguiding capabilities, and capture of single or multiple images using the powerful built in sequence manager.</span></p><p><span>Have a look at the </span><a href='https://edu.kde.org/kstars/features.php'><span>Feature</span></a><span> listing for more.</span></p></blockquote><p><span>In the following section on how to make skycharts we will use KStars and its superior exporting capabilities to vector scalable graphics. We will explore its functionalities more thoroughly there. Nonetheless, for sake of completeness of this section, we will outline KStars more prominent features here.</span></p><ol start='' ><li><strong><span>Star Catalogs</span></strong>
+<span>The Default catalog consists of stars down to magnitude 8. It&#39;s extendable to magnitude 16 and 100 million stars through a simple free in–app download. Available built–in catalogs are: </span><em><span>Tycho-2 star catalog</span></em><span> (from mag 8 to mag 12.5 ~31MB), </span><em><span>USNO NOMAD catalog</span></em><span> (100 million stars from mag 12.5 to mag 16.5 ~1.4GB)</span></li><li><strong><span>DSO Catalogs</span></strong>
+<span>Default deep–sky NGC / IC catalog (~10000 objects). Extendable to a more accurate revised NGC / IC catalog through in–app download. Other downloadable catalogs include the </span><em><span>Lynds catalog of dark nebulae</span></em><span>, </span><em><span>Abell planetaries</span></em><span>, </span><em><span>Sharpless</span></em><span>, </span><em><span>Hickson compact groups</span></em><span>.</span></li><li><strong><span>Other Catalogs</span></strong>
+<span>KStars allows to resolve the coordinates of objects which are not included in the installed databases directly through the internet. No additional catalog are required to be installed. Additionally it can import custom catalogs or custom objects by simply providing RA-DEC coordinates and minimal specifications.</span></li></ol><center>
+<a href="https://ibb.co/H2MPCT4"><img src="https://i.ibb.co/pPsKQjw/kstars-custom-add.png" alt="kstars-custom-add" border="0" width="600"></a>
+</center><blockquote><p><span>In this image I added the Napoleon&#39;s Hat asterism to my custom catalog</span></p></blockquote><ol start='5' ><li><strong><span>DSS Realistic images</span></strong>
+<span>You&#39;re not limited to see drawn charts with pointy stars you can download DSS images (Digitized Sky Survey images) and see how a portion of sky looks like in space surveys. This is important as may serve as realistic reference of stars&#39; positions at the finderscope regardless of catalogs support.</span></li><li><strong><span>Eyepiece view simulation</span></strong>
+<span>All planetariums allow to draw an eyepiece reticule over the viewport to represent a certain AFOV. With KStars you can also download the DSS image of the field being simulated and export it side by side to the chart. Moreover, you can rotate or flip both images on the fly to match the view of a reflector/cassegrain as well as plot the object rotation during the night</span></li></ol><center>
+<a href="https://ibb.co/r3mL6fH"><img src="https://i.ibb.co/W06dypf/kstars-ep-view.png" alt="kstars-ep-view" border="0" width="600"></a>
+</center><blockquote><p><span>Eyepiece simulation in KStars</span></p></blockquote><ol start='7' ><li><strong><span>Starhop Feature</span></strong>
+<span>KStars can calculate and show the optimal starhop path (currently experimental). In the image below we calculated the starhop path from Mirach to M31. The stars within &#39;parenthesis&#39; display the path.</span></li></ol><center>
+<a href="https://ibb.co/9GD9ttw"><img src="https://i.ibb.co/WshWttD/kstars-starhop.png" alt="kstars-starhop" border="0" width="800"></a>
+</center><blockquote><p><span>KStars starhop feature</span></p></blockquote><ol start='8' ><li><strong><span>Planner</span></strong>
+<span>You can organize and plan an observing list complete with charts and DSS images, a time–altitude graph, save/export functionalities to OAL XML schema for observation logs, which makes these logs compatible with many software and log-sharing websites.</span></li><li><strong><span>SVG exports</span></strong>
+<span>KStars can export to vector graphics format. Maps can be scaled to whatever paper or screen dimensions without losing quality.</span></li><li><strong><span>Sky Calendar &amp; Calculators</span></strong>
+<span>Sun, moon and planets&#39; rise and set times, planetary conjunctions, eclipses all readily available.</span></li></ol><p><span>Complete list of features </span><a href='https://edu.kde.org/kstars/features.php'><span>here.</span></a><span> or press </span><code>F1</code><span> in KStars.</span></p><h2><a name="how-to-make-skycharts-in-kstars-----configuration" class="md-header-anchor"></a><span>How to make skycharts in KStars — Configuration</span></h2><h3><a name="quick-navigation" class="md-header-anchor"></a><span>Quick navigation</span></h3><ul><li><p><span>Pan: </span><code>Left mouse+drag</code></p></li><li><p><span>Zoom: </span><code>Scroll wheel</code></p><ul><li><span>Specify angular size (FOV°): </span><code>Ctrl+Shift+Z</code></li></ul></li><li><p><span>Set time: </span><code>Ctrl+S</code></p></li><li><p><span>Set current time: </span><code>Ctrl+E</code></p></li><li><p><span>Center on cardinal points:</span></p><ul><li><span>Zenith: </span><code>Z</code></li><li><span>North: </span><code>N</code></li><li><span>South: </span><code>S</code></li><li><span>East: </span><code>E</code></li><li><span>West: </span><code>W</code></li></ul></li><li><p><span>Object interaction: </span><code>Mouse right</code></p></li></ul><blockquote><p><span>KStars is &#39;right click heavy&#39;. Most actions on the objects are performed with through the right click menu.</span></p></blockquote><h3><a name="info-boxes" class="md-header-anchor"></a><span>Info boxes</span></h3><p><span>Viewport information are displayed in the corners.</span></p><ul><li><p><span>Top Left is current time</span></p><ul><li><span>LT: Local time</span></li><li><span>UT: Universal time</span></li><li><span>ST: Sidereal time</span></li><li><span>JD: Julian Date</span></li></ul></li><li><p><span>Top right object name and coordinates</span></p></li><li><p><span>Bottom left observatory location bottom left</span></p></li></ul><p><code>Double click</code><span> expands/collapses the info boxes.</span></p><h3><a name="geographic-configuration" class="md-header-anchor"></a><span>Geographic configuration</span></h3><p><span>For a full configuration of KStars it is recommended to read the official </span><a href='https://docs.kde.org/trunk5/en/extragear-edu/kstars/index.html'><span>KStars handbook documentation</span></a><span>, it&#39;s compact and easy to follow. Nonetheless we will describe here the preliminary settings necessary for planning a session and generating charts.</span></p><p><span>First you should set your geographic location. Use the startup wizard or open the menu with </span><code>Ctrl+G</code><span> or through the </span><code>Settings</code><span> menu. Add your observing site either by selecting it from the list or by entering its Lat–Long coordinates. if it doesn&#39;t appear in the database already. You can copy latitude and longitude coordinates from Google Maps link.</span></p><ol start='' ><li><span>Lat-Long: </span><a href='https://www.google.com/maps'><span>Gmaps</span></a></li><li><span>Elevation: </span><a href='https://en.wikipedia.org/wiki/Main_Page'><span>Wikipedia</span></a></li></ol><p><span>Make sure to setup the timezone and time offset correctly.</span></p><h3><a name="extra-catalogs" class="md-header-anchor"></a><span>Extra Catalogs</span></h3><p><span>Next </span><code>Ctrl+N</code><span> or select </span><code>Data &gt; Downaload new data...</code><span> to add extra catalogs.</span></p><p><span>Recommended catalogs:</span></p><ul><li><p><em><span>Tycho-2</span></em></p><ul><li><span>extends the stars drawn from magnitude 8 to 12.5</span></li></ul></li><li><p><em><span>USNO NOMAD</span></em><span> -</span></p><ul><li><span>extends the stars drawn from magnitude 12.5 to 16.5 (~100 million)</span></li></ul></li><li><p><em><span>NGC Images displayed in the details window</span></em></p></li><li><p><em><span>Common images displayed in the details window</span></em></p></li></ul><p><span>Other DSO catalogs can be downloaded when needed or kept deactivated to maintain a clean and responsive viewport.</span></p><p><span>Custom catalogs can be imported through </span><code>Ctrl+Shift+, &gt; Catalogs tab</code><span>.</span></p><p><span>Objects that do not exist in the installed catalogs can be found through the built–in internet search.</span></p><h3><a name="sky-display" class="md-header-anchor"></a><span>Sky display</span></h3><p><span>Before editing the core settings of KStars we will set several display settings to ensure our sky charts will be accurate relative to our location and quality of the sky and that they will be readable.</span></p><h3><a name="celestial-coordinate-system" class="md-header-anchor"></a><span>Celestial coordinate system</span></h3><p><span>Firstly, we will start by choosing a coordinate system. Select the </span><code>View</code><span> menu and set the view on </span><code>Horizontal Coordinates System</code><span> then </span><code>draw the horizontal coordinates grid</code><span> by activating the icon and disable the </span><code>equatorial grid</code><span> using the toggle button.</span></p><p><span>For our purpose of charting or using KStars as visual reference, plotting the sky in horizontal coordinates it&#39;s preferable — regardless of your type of mount you use — we’ll only need charts to find constellations and their objects and having a flat horizon with the zenith displayed at the top is more natural than having a tilted horizon with the origin pointed on Polaris. See images below for reference.</span></p><center>
+<a href="https://ibb.co/dtK4SSS"><img src="https://i.ibb.co/5kchddd/kstars-horiz-coord.png" alt="kstars-horiz-coord" border="0" width="800"></a>
+</center><blockquote><p><span>Sky plotted in Horizontal Coordinates</span></p></blockquote><center>
+<a href="https://ibb.co/HPp9WdS"><img src="https://i.ibb.co/M15JY6v/kstars-eq-coord.png" alt="kstars-eq-coord" border="0" width="800"></a>
+</center><blockquote><p><span>Sky plotted in Equatorial Coordinates</span></p></blockquote><p><strong><span>The Horizontal Coordinate System</span></strong></p><blockquote><p><span>The Horizontal coordinate system uses the observer&#39;s local horizon as the Fundamental Plane. This conveniently divides the sky into the upper hemisphere that you can see, and the lower hemisphere that you can&#39;t (because the Earth is in the way). The pole of the upper hemisphere is called the Zenith. The pole of the lower hemisphere is called the nadir. The angle of an object above or below the horizon is called the Altitude (Alt for short). The angle of an object around the horizon (measured from the North point, toward the East) is called the Azimuth. The Horizontal Coordinate System is sometimes also called the Alt/Az Coordinate System.</span></p><p><span>The Horizontal Coordinate System is fixed to the Earth, not the Stars. Therefore, the Altitude and Azimuth of an object changes with time, as the object appears to drift across the sky. In addition, because the Horizontal system is defined by your local horizon, the same object viewed from different locations on Earth at the same time will have different values of Altitude and Azimuth.</span></p><p><span>Horizontal coordinates are very useful for determining the Rise and Set times of an object in the sky. When an object has Altitude=0 degrees, it is either Rising (if its Azimuth is &lt; 180 degrees) or Setting (if its Azimuth is &gt; 180 degrees).</span></p></blockquote><p><span>More on celestial coordinates system: </span><a href='https://docs.kde.org/trunk5/en/extragear-edu/kstars/ai-skycoords.html'><span>KStars documentation</span></a></p><h3><a name="map-projection" class="md-header-anchor"></a><span>Map Projection</span></h3><p><span>Next, onto sky projection. There are several transforms that can project the sky hemisphere on a flat plane like screen or paper. To set the sky projection to Stereographic press </span><code>F9</code><span> or select </span><code>View &gt; Projection &gt; Stereographic</code><span>. You’ll see several options but we are going to use the stereographic projection since it’s conformal and it’s commonly used in astronomy to draw all–sky maps. To cycle through projections use buttons </span><code>F5</code><span> through </span><code>F10.</code><span> No transform is going to be perfect since when projecting a sphere or a hemisphere onto a plane distortions are unavoidable: we are either going to loose distances — they’re no longer going to be accurate — or the shapes or areas or directions.</span></p><p><span>The stereographic projection has the property of being conformal to all points: angles are preserved but not lengths — </span><a href='https://en.wikipedia.org/wiki/Conformal_map#/media/File:Conformal_map.svg'><span>illustration</span></a><span> — this means that shapes are preserved, circles remains circles, and ultimately that the shape of the constellations are consistent when projected so identifying them is not a problem. In stereographic projection shapes get stretched more towards the circumference (horizon) than towards the zenith so low constellations are not as accurate, however, the distortion from zenith to the horizon is proportional and overall low constellation are going to be comparable to the ones higher in the sky.</span></p><p><span>For zoomed–in maps representing eyepieces and finders’ images we’re always going to plot our targets in the center so distortion is not as much of a problem and again, since shapes are preserved, star patterns useful for starhopping are going to be accurate.</span></p><p><span>Try setting the time to an hour of the night </span><code>Ctrl+S</code><span> , then set the sky FOV to 230° through </span><code>Ctrl+Shift+Z</code><span> then press </span><code>S</code><span> to display the southern part of the sky. Now switch between projections while watching the constellations at the edge of the field:</span></p><ul><li><strong><span>Lambert Azimuthal Equal–area:</span></strong><span> </span><code>F5</code></li><li><strong><span>Azimuthal Equidistant:</span></strong><span> </span><code>F6</code></li><li><strong><span>Stereographic</span></strong><span>: </span><code>F9</code></li></ul><h3><a name="eyepiece-reticules" class="md-header-anchor"></a><span>Eyepiece reticules</span></h3><p><span>To draw FOV reticules of your eyepieces select the bullseye icon in the top bar &gt; </span><code>Edit FOV symbols &gt; new</code><span>. The dialog box will allow you to setup reticules for your instruments. It’s all self–explanatory, once you’re done name the reticule, save and add more if necessary. Telrad markers are already included by default.</span></p><p><span>For binoculars you’ll need to specify things differently. The FOV/yards value it’s usually printed by the manufacturer on the binoculars’ hull near the right eyepiece. Once you’re done you can cycle through your reticules with </span><code>PagUp</code><span> and </span><code>PagDown</code><span> or through the bullseye menu.</span></p><h3><a name="core-settings" class="md-header-anchor"></a><span>Core settings</span></h3><p><span>Move into KStars configuration window with </span><code>Ctrl+Shift+,</code><span> or by </span><code>Settings &gt; Configure KStars…</code><span>. We will cover only the settings specific for visual therefore no FITS, INDI or Ekos as those are related to astrophotography.</span></p><h4><a name="catalogs" class="md-header-anchor"></a><span>Catalogs</span></h4><p><span>In here you can specify how the deep–sky is displayed, so stars and DSO. The settings for limiting the magnitude plotted are a bit crude compared to Cartes du Ciel but we can get it fairly precise.</span></p><p><span>First you should set the limiting magnitude for the naked eye: </span><code>Faint limit zoomed out</code><span> at the bottom. This, in effect, will reflect the naked–eye limiting magnitude: that is the faintest stars visible with the naked–eye from your site. If you don’t know then check the </span><a href='https://en.wikipedia.org/wiki/Bortle_scale'><span>Bortle class</span></a><span> of your sky or the </span><a href='https://www.lightpollutionmap.info'><span>light pollution map</span></a><span>.</span></p><figure><table><thead><tr><th><span>Bortle Class</span></th><th><span>Color on LP map</span></th><th style='text-align:left;' ><span>Naked–eye limiting mag</span></th></tr></thead><tbody><tr><td><span>1 — Excellent dark–sky site</span></td><td><span>Black</span></td><td style='text-align:left;' ><span>7.6 to 8</span><sup><span>th</span></sup></td></tr><tr><td><span>2 — Typical truly dark site</span></td><td><span>Gray</span></td><td style='text-align:left;' ><span>7.1 to 7.5</span><sup><span>th</span></sup></td></tr><tr><td><span>3 — Rural sky</span></td><td><span>Blue</span></td><td style='text-align:left;' ><span>6.6 to 7.0</span><sup><span>th</span></sup></td></tr><tr><td><span>4 — Rural/Suburban transition</span></td><td><span>Green</span></td><td style='text-align:left;' ><span>6.1 to 6.5</span><sup><span>th</span></sup></td></tr><tr><td><span>5 — Suburban sky</span></td><td><span>Orange</span></td><td style='text-align:left;' ><span>5.6 to 6.0</span><sup><span>th</span></sup></td></tr><tr><td><span>6 — Bright suburban sky</span></td><td><span>Red</span></td><td style='text-align:left;' ><span>5.5</span><sup><span>th</span></sup></td></tr><tr><td><span>7 — Suburban/urban transition</span></td><td><span>Red</span></td><td style='text-align:left;' ><span>5.0</span><sup><span>th</span></sup></td></tr><tr><td><span>8 — City sky</span></td><td><span>White</span></td><td style='text-align:left;' ><span>4.5</span><sup><span>th</span></sup></td></tr><tr><td><span>9 — Inner–city sky</span></td><td><span>White</span></td><td style='text-align:left;' ><span>4.0</span><sup><span>th</span></sup><span> or less</span></td></tr></tbody></table></figure><p><span>Next set the upper bound magnitude: </span><code>Faint limit zoomed in</code><span>. This will represent the faintest DSO detectable from your sky with your telescope. Everything fainter will be filtered out from the viewport because ‘will not’ be visible. Determining this value depends on many things. You can calculate it </span><a href='http://www.cruxis.com/scope/limitingmagnitude.htm'><span>here</span></a><span> (for power use </span><code>aperture in mm x 2</code><span> for SQM the value provided by </span><a href='https://www.lightpollutionmap.info'><span>light pollution map</span></a><span> as check for your Bortle estimate). However, you don’t necessarily need to be super precise about this especially if you live under light polluted skies. Conversely, if your sky is Bortle 3-4 or better it’s probably good to set this 0.5 or 1 magnitude over the realistic value since using the telescope near its limit may be possible. Then again, the detectability of an object doesn’t depend strictly on magnitude, as we will see later, but on object size and surface brightness also. The Veil Nebula in Cygnus is a notorious example. Although it’s cataloged with an integrated magnitude of 7 it’s diffused over a large area so its surface brightness is quite low and it’s quite difficult to see it without an O</span><sub><span>III</span></sub><span> interference filter. Another is the planetary nebula Abell 4. It’s cataloged as 14</span><sup><span>th</span></sup><span> mag PN but it’s surprisingly visible even in 5’’ scopes in O</span><sub><span>III</span></sub><span> despite the catalog being populated by faint objects requiring at least 8’’ to 16’’ scopes.</span></p><p><span>Here are some </span><em><span>approximated</span></em><span> magnitude limits for common apertures, use it as a check:</span></p><figure><table><thead><tr><th><span>Aperture (in)</span></th><th><span>Approximate limiting magnitude</span></th></tr></thead><tbody><tr><td><span>4</span></td><td><span>13.6</span></td></tr><tr><td><span>5</span></td><td><span>14.0</span></td></tr><tr><td><span>6</span></td><td><span>14.5</span></td></tr><tr><td><span>8</span></td><td><span>15.5</span></td></tr><tr><td><span>10</span></td><td><span>16.0</span></td></tr><tr><td><span>12</span></td><td><span>16.4</span></td></tr><tr><td><span>16</span></td><td><span>16.9</span></td></tr><tr><td><span>18</span></td><td><span>17.3</span></td></tr></tbody></table></figure><p><span>Next check both </span><code>Resolve nmames not know to Kstars...</code><span> and </span><code>Show objects of unknown magnitude</code><span> and enable the catalogs you’ve downloaded earlier through </span><code>Data &gt; Download new data...</code><span>.</span></p><p><span>Last tricky step is setting the </span><code>Star density</code><span> slider. This is how we control how many faint stars are plotted. It’s a very crude method, that I hope they will improve, especially compared to Cartes du Ciel which, instead, allows to limit the stars drawn by specifying the exact magnitude for both stars and DSO and for custom FOVs. We can manage. Just set the field viewport FOV to 360° (</span><code>Ctrl+Shift+Z</code><span>) then move the slider and confirm with </span><code>OK</code><span> and repeat until the smallest dots — faintest stars — have around the same magnitude that you set in </span><code>Faint limit zoomed out</code><span> previously. Yes it’s a crude workaround but at least it’s a one–timer.</span></p><p><span>The rest of the settings are up to your preference. For asteroids and supernovae’s magnitude limits just use values near the threshold specified earlier in </span><code>Fain limit zoomed in</code><span>. We’ll show the settings for a Bortle 3-4 sky and 10’’ telescope.</span></p><center>
+<a href="https://ibb.co/zNvtCbQ"><img src="https://i.ibb.co/zNvtCbQ/ks-cfg-01-cat.png" alt="ks-cfg-01-cat" border="0"></a> <a href="https://ibb.co/pP9jBN3"><img src="https://i.ibb.co/pP9jBN3/ks-cfg-02-sol.png" alt="ks-cfg-02-sol" border="0"></a> <a href="https://ibb.co/p1ZszYx"><img src="https://i.ibb.co/p1ZszYx/ks-cfg-03-novae.png" alt="ks-cfg-03-novae" border="0"></a> <a href="https://ibb.co/k5jF4Hn"><img src="https://i.ibb.co/k5jF4Hn/ks-cfg-04-guides.png" alt="ks-cfg-04-guides" border="0"></a> <a href="https://ibb.co/n6np1b4"><img src="https://i.ibb.co/n6np1b4/ks-cfg-05-dark-scheme.png" alt="ks-cfg-05-dark-scheme" border="0"></a> <a href="https://ibb.co/Nx2rr6S"><img src="https://i.ibb.co/Nx2rr6S/ks-cfg-06-light-scheme.png" alt="ks-cfg-06-light-scheme" border="0"></a> <a href="https://ibb.co/G001K2V"><img src="https://i.ibb.co/G001K2V/ks-cfg-07-adv-gen.png" alt="ks-cfg-07-adv-gen" border="0"></a> <a href="https://ibb.co/ftRyznk"><img src="https://i.ibb.co/ftRyznk/ks-cfg-08-adv-look.png" alt="ks-cfg-08-adv-look" border="0"></a> <a href="https://ibb.co/yhbpg6g"><img src="https://i.ibb.co/yhbpg6g/ks-cfg-09-adv-list.png" alt="ks-cfg-09-adv-list" border="0"></a>
+</center><center>
+<img src="https://i.ibb.co/WWW772P/kstars-all-white.png" alt="kstars-all-white" border="0" width="800">
+</center><h2><a name="make-skycharts-in-kstars-----workflow" class="md-header-anchor"></a><span>Make skycharts in KStars — Workflow</span></h2><p><span>In this part we will show you how to use KStars session planner to keep track of our session logs and the objects we want to observe, then organize them in the scheduler and sort them by altitude and time in order to observe them when they rise highest in the sky. Then depending on how you prefer to observe you’ll be able to run your plan from a laptop in the field or generate sky charts that you can either print or display on a tablet at your site. </span></p><h3><a name="step-1-----time-and-object-list" class="md-header-anchor"></a><span>STEP 1 — Time and object list</span></h3><p><span>First set KStars time to when you’ll start observing by hitting </span><code>Ctrl+S</code><span> — this should be roughly when you’ll be finished mounting the scope and it will start to come to ambient temperature. Then open the observation planner: </span><code>Ctrl+L</code><span>. Here you can organize your sessions very efficiently. There are many features but the main ones are the tabs </span><code>Wish List</code><span> and </span><code>Session Plan</code><span>. In the wish list you put all the objects you plan to observe in the long term. So, for example, if you’re planning based on an observing list you can put in the wishlist all the objects for the current season/month. While in the session plan you load specific DSO </span><em><span>from the wish list</span></em><span>, that you plan to observe in the forthcoming night. You can also add objects directly to the session planner through the </span><code>Find object</code><span> button, then they’ll also be added to the wish list. Alternatively you can use KStars’ </span><code>What&#39;s up tonight</code><span> feature and add objects from there instead. If you plan this way make sure you filter objects according to the limiting magnitude set earlier in </span><code>Settings &gt; Catalog &gt; Faint limit zoomed in</code><span>. </span></p><p><span>If you want to browse the planetarium for your own objects you can use the wizard menu which will let you filter objects by type, then by constellation or sky region, and lastly by altitude vs time and magnitude. This feature can be particularly useful to study specific constellations you find interesting. Try using the wizard to plan a session for observing star clusters and nebulae in the Auriga and between Scutum and the northern section of Sagittarius.</span></p><h3><a name="step-2-----estimating-visibility-apparent-magnitude-and-surface-brightness" class="md-header-anchor"></a><span>STEP 2 — Estimating visibility: Apparent magnitude and Surface brightness</span></h3><blockquote><p><span>How do I know which objects look great and are visible now?</span></p></blockquote><p><span>If you’re following an observing guide you probably won’t need sky charts as DSO will be already plotted and described to you by the author and they’ll be sorted in some way, either by aperture or easiness. However, if you’re building your session by picking objects from KStars </span><code>What&#39;s up tonight</code><span> tool, faint catalogs, observation lists or astrophiles’ reports you’ll probably need to estimate DSO visibility for your telescope and sky by yourself.</span></p><p><span>As we said earlier the detectability of an object doesn’t depend </span><em><span>only</span></em><span> and strictly on apparent magnitude. While it’s still fairly accurate to predict the visibility of an object at the eyepiece, visibility also depends on object </span><em><span>size</span></em><span> (hence distance), </span><em><span>surface brightness</span></em><span> (which itself depends on sky conditions) on </span><em><span>shape</span></em><span>, and </span><em><span>sharpness vs diffuseness</span></em><span> of surface details.</span></p><p><span>A fairly good estimate for visibility requires comparing magnitude vs size, then if size is ‘large’ one may need to compare the surface brightness to the sky glow brightness. Therefore as an estimate,</span></p><blockquote><p><span>For an extended object like a galaxy, nebula or globular cluster, if the magnitude is fairly bright, say 5–7</span><sup><span>th</span></sup><span> mag but is quite large — ~50–200 arcminutes — it will most likely have a low surface brightness. Then, if the surface brightness is ~3 magnitudes dimmer than the sky glow the object will probably be detectable.</span></p></blockquote><p><span>When observing at the limits offered by their own sky one should distinguish detectability and observability of an object. Also one should keep in mind that, even if useful, this is an empirical estimate that you should adapt with time and experience to your own sky and telescope. After all astronomers historically used their own methods to determine magnitude and some even encouraged to devise their own formulae/methods.</span></p><blockquote><p><span>I selected [the ratio] 2.512 for the convenience of calculation… If then any observer will determine for himself the smallest of Argelander’s magnitudes just discernible by fits, on a fine moonless night, with an aperture of one inch, and call this quantity </span><code>L</code><span>, or the limit of vision for one inch, the limit </span><code>l</code><span>, for any other aperture, will be given by the simple formula, </span><code>l = K+5 x log(aperture)</code><span>. Numerous comparisons, made with various telescopes and powers, at different seasons of the year, have furnished me with the value </span><code>L = 9.2</code><span> for my own sight, which is, I believe, a very average one, and therefore suitable for such a determination. — Norman Robert Pogson (Monthly Notices of the Royal Astronomical Society, Vol. XVII, 1857)</span></p></blockquote><p><span>Moreover, what estimates and brightness figures fail to measure is the contribution of the eye and of the object’s surface features to detectability. For example the Andromeda Galaxy, according to the criterion above, should not be visible, having an apparent magnitude of 3.44 over an apparent width of ~3° or 420 arcminutes. And yet it is visible even in very light polluted skies. This galaxy&#39;s extended disk is indeed quite hard to see in light polluted skies however it has a very bright core. So more realistically that 3.44 magnitude applies </span><strong><span>mainly</span></strong><span> to the core which is much smaller than the disk, so we should consider that “3.44” figure spread ‘emitted’ mainly from a region that is 1/3 or 1/4 of the general apparent size. So our criterion works again. Similarly if details on the surface of an object have high contrast — as in a bright area is next to a very dim one — that will help a lot in detecting the object from the sky background, it will catch the eye and make the view ‘stable’ meaning it won’t fade while looking at it contrary to what the figures suggest.</span></p><p><span>You can check the estimated Sky Quality for your site at </span><a href='http://clearoutside.com/'><span>clearoutside.com</span></a><span>. </span></p><p><span>To read information about any object — for example size, surface brightness, rise/transits — you can pull out the </span><code>Details</code><span> window right from the planner and check the </span><code>Links</code><span> tab which will give to you links to official websites about the history and technical information about your target or links to official photographs taken with Hubble, Spitzer and other research telescopes.</span></p><p><span>Then if visibility is met in terms of brightness one should make sure it’s also met in terms of altitude over the horizon. Any celestial body is seen best if it’s high in altitude or declination as we will be looking at it through less air mass, particles, pollens and light pollution will be more diffused, meaning that the skyglow magnitude will be higher than the base reading for your site, severely limiting seeing conditions. Objects as bright as the skyglow will probably be invisible if near the horizon but possibly very obvious at the zenith.</span></p><p><span>KStars provide a convenient altitude vs time graph for each object in our list so we can assess if the object will rise at all over the horizon and schedule its observation to a time when it’s the highest or near its peak. (Note that time is represented both in Universal Time and Local Time. LT axis is the lower X axis).</span></p><h3><a name="step-3-----scheduling-altitude-vs-time" class="md-header-anchor"></a><span>STEP 3 — Scheduling: Altitude vs Time</span></h3><p><span>Some objects, depending on the time of the year, may transit early in the morning or before twilight or too late in the night. So while checking the altitudes of transits it’s useful to schedule the time of observation to a convenient hour that balances high altitude and the available time we have. Time can be customized for each object with the </span><code>Set time</code><span> button. Then it’s useful to sort the list by transit </span><code>Time</code><span> as that will tell us in what order we should observe our targets. It’s good to dedicate at least 20 – 30 minutes to each object and overschedule. It’s possible you won’t be able to see something due to unexpected clouds, or you overestimated visibility or seeing so it’s convenient to have more options.</span></p><blockquote><p><span>Note you can plot multiple objects on the same standalone graph and compare their transits — </span><code>Ctrl+A</code><span>. In the graph are plotted day and night hours with sky colors: blue and black. Moon hours are also represented in gray. When estimating visibility you need to consider moonlight too. The darker and clearer your skies the greater the effect of moonlight and vice–versa.</span></p><p><span>If the graph is always too low or the object doesn’t rise that probably means it’s not visible in this or the next months or that it’s not visible from your hemisphere.</span></p></blockquote><center>
+<a href="https://ibb.co/Vj0PfgJ"><img src="https://i.ibb.co/NVgHc9t/ks-cfg-alt-time.png" alt="ks-cfg-alt-time" border="0" width="700"></a>
+</center><p><span>Additionally it’s possible to record notes for each object directly in the planner. For example whether it’s a challenging one, if it requires a particular interference filter, or if you missed it last session and want to try a different star hop path someone suggested, interesting info that you want to write down and tell others at the site etc.</span></p><p><span>Once you’re done you can save or export your session as an </span><code>.obslist</code><span> file in case you want to share it, retry it or just log it. If you use a laptop in the field you can stop here, save the plan, load it and execute it at your site through the menu </span><code>Observation &gt; Execute the session plan</code><span>.</span></p><h3><a name="step-4-----generating-charts" class="md-header-anchor"></a><span>STEP 4 — Generating charts</span></h3><p><span>At this point we only need to generate charts. Depending on what you choose you may want to use a suited color scheme: a light one for printing and a dark/red one for digital screens. Earlier in the configuration section on ‘Sky Display’ you can find color schemes ‘optimized’ for readability for both dark and light charts. If you want to use those you could just put KStars and your browser side by side and sample the colors from the image into KStars.</span></p><p><span>For charts you want a wide one and a zoomed one. The first one serves to find your targets with the naked eye relative to bright stars in the constellations so you can point the finder, the second one to approximately match your finder or eyepiece image so you can use the map as reference for star hopping.</span></p><p><span>If most of the targets on your list are in the same part of the sky, as in they all face North or are in the same constellation you could make only 1 wide field map and then several zoomed ones plotting the starhop path for each object.</span></p><h4><a name="41-----naked--eye-chart" class="md-header-anchor"></a><span>4.1 — Naked–eye chart</span></h4><p><span>So open your session planner and center your first object — </span><code>Right click &gt; center</code><span>. Then </span><code>Ctrl+Shit+Z</code><span> to set the field of view for the wide chart. The right value is arbitrary, just set the map wide enough so that you can see many bright stars and the entire constellation so that it’s easy for you to aim the finderscope to start the starhop. In the map below we used 80° yielding an AFOV of 44.5° on a 1920x1080 monitor. Then just take a snapshot of the viewport.</span></p><blockquote><p><strong><span>Viewport snapshot:</span></strong><span> </span><code>File &gt; Save Sky image</code><span>, choose a filename and append </span><code>.svg</code><span> at the end of the filename. Specifying the format as </span><code>.svg</code><span> is important as it means the viewport image will be exported as a vector file — as opposed to a raster image — that we can print in high quality, edit or scale freely for any paper size.</span></p></blockquote><center>
+<a href="https://ibb.co/NxLXpkf">
+	<img src="https://i.ibb.co/0qfkZW1/skycharts-white1.png" alt="skycharts-white1" border="0"></a>
+</center><p><span>For the dark digital version you could activate the HiPS DSS overlay for colored stars and style points. Disabling labels here is up to preference.</span></p><center>
+<a href="https://ibb.co/F39hLyj">
+	<img src="https://i.ibb.co/T2Zwx7F/astro-map-tmpl6.png" alt="astro-map-tmpl6" border="0"></a>
+</center><p><span>We’ll talk about print templates and cardinal points overlays later, unfortunately KStars doesn’t draw a compass overlay in the current version and cardinal points are plotted only near the horizon line so you’ll have to write them down or edit the image later in some graphic program if necessary.</span></p><h4><a name="42-----starhop-path-chart" class="md-header-anchor"></a><span>4.2 — Starhop path chart</span></h4><p><span>Next for the zoomed chart just change the FOV to the narrowest angle that keeps the target and the reference star in view. Here I’m plotting both my finderscope and my telescope eyepiece reticules, respectively 7° and ~1.5°, to have a sense of scale of the AFOV with respect to the sky region. The idea is the same of telrad circles, which can also be used to measure distances. However, in this case, we’re dealing with an optical finder so we can use faint star patterns as ‘landmarks’ when hopping from a star to another.</span></p><p><span>Based on eyepiece FOV KStars is capable of calculating a starhop path that leads from A to B following bright stars. In the example below we centered on the planetary nebula NGC6503 then </span><code>Right clicked</code><span> on Chi Draconis 3.6th mag star and selected </span><code>Starhop from here to...</code><span> and </span><code>Right clicked</code><span> again on the planetary nebula to select the end target. Then in the dialog box choose the same low power eyepiece reticule you’ve plotted and that you’ll be using at the field. In my case the yellow circle represents 95.2 arcminutes. Hide the starhop summary somehow and take a snapshot. (You could hide it in the bottom right corner the screen or on your second monitor if possible).</span></p><center>
+<a href="https://ibb.co/yScswVQ">
+	<img src="https://i.ibb.co/GT4PKF5/skycharts-white2.png" alt="skycharts-white2" border="0"></a>
+</center><h4><a name="43-----eyepiece-and-dss-chart" class="md-header-anchor"></a><span>4.3 — Eyepiece and DSS chart</span></h4><p><span>Before drawing the last chart it’s recommended to setup a square 1° eyepiece reticule to frame the DSS image and give it a FOV reference. Simply open the bullseye menu and add a new reticule, input </span><code>60,0 x 60,0</code><span> in the </span><code>Field of View</code><span>, select its shape to be rectangular, give it a visible color, a name and save.</span></p><center>
+<a href="https://ibb.co/BCXyrks"><img src="https://i.ibb.co/bKSs2td/ks-cfg-DSS-reticule.png" alt="ks-cfg-DSS-reticule" border="0" width="600"></a>
+</center><p><span>Then open </span><code>KStars settings</code><span>, navigate into the </span><code>Advanced</code><span> section and input </span><code>60,0</code><span> in the field </span><code>Default DSS image size</code><span>. This way our reticule and DSS image will have the same dimensions. </span></p><center>
+<a href="https://ibb.co/zR60pcm"><img src="https://i.ibb.co/QND1LBJ/ks-cfg-dss-fetch.png" alt="ks-cfg-dss-fetch" border="0" width="600"></a>
+</center><p><span>Now activate both the DSS and the low power eyepiece reticules in the viewport. Then check the size of the current DSS image fetched. If it’s either smaller or larger than our </span><code>60x60</code><span> DSS reticule </span><code>Right Click &gt; Customized DSS download</code><span> and input </span><code>60</code><span> arcminutes in both dialog boxes. For the color plate red or blue is fine choose one that looks the clearest. IR is infrared.</span></p><p><span>The DSS image may be useful as realistic reference for star patterns nearby. Now either from the session planner or from the viewport right click the entry/object and select </span><code>Simulate eyepiece view</code><span> and select the low power eyepiece reticule you activated in the viewport. You’ll see the chart and the DSS image side by side. I don’t find overlaying the images or giving custom rotations particularly useful but inverting colors to match the light color scheme is useful as it spares the printer’s ink. Then select the view preset that fits the image orientation of your telescope and click export. There you can choose to plot an object rotation dial, then save the image.</span></p><blockquote><p><strong><span>Eyepiece simulation snapshot:</span></strong><span> Contrary to the other charts, exporting this plot as </span><code>.svg</code><span> has no advantage, just specify the format to be </span><code>.png</code><span>. </span><code>.jpg</code><span> is not recommended.</span></p></blockquote><center>
+<a href="https://ibb.co/n83Jr0k">
+	<img src="https://i.ibb.co/M580nhN/skycharts-white6.png" alt="skycharts-white6" border="0"></a>
+</center><h5><a name="image-orientation-----bob-molerss-bloghttpsbobmolerwordpresscomtagtelescope-image-orientation" class="md-header-anchor"></a><span>Image Orientation — </span><a href='https://bobmoler.wordpress.com/tag/telescope-image-orientation/'><span>Bob Molers’s blog</span></a></h5><p><span>From left to right:</span></p><p><strong><span>Upright image:</span></strong><span> The orientation of the Moon as seen with the naked eye, binoculars, spotting scopes and telescopes with an erecting eyepiece.</span></p><p><strong><span>Left–Right mirror image:</span></strong><span> The orientation of the Moon as seen in a refractor or a Schmidt–Cassegrain or similar type reflector with a diagonal at the eyepiece end, and the eyepiece pointing up. This is a mirror image due to an odd number of mirror reflections in the telescope.</span></p><p><strong><span>Up–down mirror image:</span></strong><span> The orientation of the Moon as seen with a refractor or Schmidt–Cassegrain and diagonal with the eyepiece oriented horizontally.</span></p><p><strong><span>Mirror image:</span></strong><span> The orientation of the moon through a Newtonian reflector or a refractor without an eyepiece diagonal. It‘s an inverted image, rotated by 180°.</span></p><center> <a href="https://bobmoler.files.wordpress.com/2014/09/upright-view-of-moon.png"><img src="https://bobmoler.files.wordpress.com/2014/09/upright-view-of-moon.png" alt="astro-map-tmpl3" border="0" width="200"></a> <a href="https://bobmoler.files.wordpress.com/2014/09/morror-moon.png"><img src="https://bobmoler.files.wordpress.com/2014/09/morror-moon.png" alt="astro-map-tmpl3" border="0" width="200"></a> <a href="https://bobmoler.files.wordpress.com/2014/09/mirror-inverted-moon.png"><img src="https://bobmoler.files.wordpress.com/2014/09/mirror-inverted-moon.png" alt="astro-map-tmpl3" border="0" width="200"></a> <a href="https://bobmoler.files.wordpress.com/2014/09/inverted-moon.png"><img src="https://bobmoler.files.wordpress.com/2014/09/inverted-moon.png" alt="astro-map-tmpl3" border="0" width="200"></a></center><h2><a name="polishing-the-charts-for-print-and-conclusion" class="md-header-anchor"></a><span>Polishing the charts for print and conclusion</span></h2><p><span>At this point the raw charts are printable and usable. However, they’re just snapshots and have no information about the objects or the session beside the configuration of the stars. To ease readability at the field you could write on the printed chart what’s the object plotted, the observing hour scheduled and cardinal points. To determine the cardinal points, with the object centered, just set the viewport FOV to 180° or more by </span><code>Ctrl+Shift+Z</code><span> and check the cardinal points plotted.</span></p><p><span>Alternatively, if you’re up to it, you can refine the charts in a graphic program and optimize them for print. We won’t dwell too much on this and just give some guidelines to refine the maps in Adobe Illustrator and Adobe InDesign. Once you got comfortable with all the steps below it shouldn’t take more than 30–40 minutes to refine the maps for ~10 objects, so that’s 3 maps each.</span></p><h3><a name="optimization" class="md-header-anchor"></a><span>Optimization</span></h3><p><span>Main issues with the raw charts are:</span></p><ol start='' ><li><p><span>Lack of information/overlays</span></p></li><li><p><span>Map dimensions vs paper dimensions</span></p><ul><li><span>Currently the map fits the 16:9 monitor’s aspect ratio: ~1.7 width/height. While A4 paper fits ~1.4 or square root 2. </span></li></ul></li><li><p><span>Artifacts created around stars on export</span></p><ul><li><span>On export some unwanted artifacts are created around stars. If you compare the </span><code>.svg</code><span> export with KStars viewport you’ll notice stars are bigger and overall the charts feel more cluttered.</span></li></ul></li></ol><h3><a name="processing-the-maps" class="md-header-anchor"></a><span>Processing the maps</span></h3><p><span>Fortunately the file structure is well–organized and star–size can be addressed easily. Open the charts in Adobe Illustrator, select a star with the </span><code>Group selection tool</code><span>: the white arrow tool marked with a </span><code>+</code><span>, and click on a star. Then head to the </span><code>Top Bar</code><span> and from the </span><code>Select similar</code><span> icon, select objects with similar </span><code>Fill and Stroke Color</code><span>.</span></p><center>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/J3kSkPk/ai-star-fix.png" alt="ai-star-fix" border="0"></a>
+</center><p><span>Then with the stars selected, head in the </span><code>Tools Bar</code><span> and remove the black stroke. Check the screenshot below for reference. Save the file as an Illustrator file </span><code>File &gt; Save As &gt; .ai</code><span> and delete the raw </span><code>.svg</code><span> since now is redundant. You could follow the same procedure to reduce the stroke size of other elements, make the milky way outlined, remove extra labels or design the chart however you want. </span></p><center>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/8mjCMsp/ai-stars-outline.png" alt="ai-stars-outline" border="0"></a>
+</center><h3><a name="paginating" class="md-header-anchor"></a><span>Paginating</span></h3><p><span>Lastly you only need to draw the overlays, frame the charts to the paper dimensions and organize them in a single document for ease of printing. I’m providing an Adobe InDesign template where you only need to edit text, replace charts and export to </span><code>pdf</code><span> — </span><code>Ctrl+E &gt; Print preset</code><span>. The template is organized through Master Pages and linked images. To work with the template you only need to know how to apply Master Pages, Relink figures and override Master Page Items, such as text. The figures you should relink would be the new </span><code>.ai</code><span> charts exported as per the section above. How to do these steps is described thoroughly on Adobe’s websites.</span></p><p><a href='https://github.com/cani-venatici/indesign-skychart-template'><span>Indesign Template</span></a><span>. Read the description, download and install the font if you want to use the one used in the template or change with your preferred one. Then download the repo and open the </span><code>.indd</code><span> file in InDesign.</span></p></div>
+</body>
+</html>
